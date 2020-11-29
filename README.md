@@ -17,7 +17,7 @@ an instance of Mockoon running.
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-    clean_framework: ^0.2.4
+    clean_framework: ^0.2.6
 ```
 
 ### 2. Install it
