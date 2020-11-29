@@ -76,7 +76,7 @@ The *API* module defines the logic for your API services, request, and response.
 
 * Every *Feature ServiceRequest* class should extend *Equatable* and implement *JsonRequestModel* from `clean_framework_defaults.dart`
 
-#####ServiceResponse
+##### ServiceResponse
 
 * Every *Feature ServiceResponse* class should extend *Equatable* and implement *JsonResponseModel* from `clean_framework_defaults.dart`
 
