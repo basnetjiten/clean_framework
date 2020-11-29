@@ -15,15 +15,16 @@ abstract class Presenter<B extends Bloc, V extends ViewModel, S extends Screen>
     });
 
     return StreamBuilder<V>(
-        stream: getViewModelStream(bloc),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return buildLoadingScreen(context);
-          } else if (snapshot.hasData) {
-            return buildScreen(context, bloc, snapshot.data);
-          }
-          return buildErrorScreen(context, snapshot.error);
-        });
+      stream: getViewModelStream(bloc),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return buildLoadingScreen(context);
+        } else if (snapshot.hasData) {
+          return buildScreen(context, bloc, snapshot.data);
+        }
+        return buildErrorScreen(context, snapshot.error);
+      },
+    );
   }
 
   Stream<V> getViewModelStream(B bloc);

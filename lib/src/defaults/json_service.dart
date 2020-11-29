@@ -4,7 +4,6 @@ import 'package:clean_framework/clean_framework.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import 'json_parse_helpers.dart';
 export 'json_parse_helpers.dart';
 
 abstract class JsonResponseModel extends ServiceResponseModel

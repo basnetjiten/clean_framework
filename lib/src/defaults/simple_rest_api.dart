@@ -2,29 +2,35 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:clean_framework/clean_framework.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 
 class SimpleRestApi extends RestApi {
-  final baseUrl;
-  final bool _trustSelfSigned = true;
+  final String baseUrl;
+  final bool trustSelfSigned;
 
-  HttpClient _httpClient;
-  IOClient _ioClient;
+  Client _httpClient;
 
-  SimpleRestApi({this.baseUrl = 'http://127.0.0.1:8080/service/'}) {
-    _httpClient = new HttpClient()
-      //@TODO should we remove this? Not sure if its safe for release
-      ..badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => _trustSelfSigned);
-    _ioClient = new IOClient(_httpClient);
+  SimpleRestApi({
+    this.baseUrl = 'http://127.0.0.1:8080/service/',
+    this.trustSelfSigned = false,
+  }) {
+    if (kIsWeb) {
+      _httpClient = Client();
+    } else {
+      final innerClient = HttpClient()
+        ..badCertificateCallback = (cert, host, port) => trustSelfSigned;
+      _httpClient = IOClient(innerClient);
+    }
   }
 
   @override
-  Future<RestResponse> request(
-      {RestMethod method,
-      String path,
-      Map<String, dynamic> requestBody = const {}}) async {
+  Future<RestResponse> request({
+    RestMethod method,
+    String path,
+    Map<String, dynamic> requestBody = const {},
+  }) async {
     assert(method != null && path != null && path.isNotEmpty);
 
     Response response;
@@ -33,19 +39,19 @@ class SimpleRestApi extends RestApi {
     try {
       switch (method) {
         case RestMethod.get:
-          response = await _ioClient.get(uri);
+          response = await _httpClient.get(uri);
           break;
         case RestMethod.post:
-          response = await _ioClient.post(uri, body: requestBody);
+          response = await _httpClient.post(uri, body: requestBody);
           break;
         case RestMethod.put:
-          response = await _ioClient.put(uri, body: requestBody);
+          response = await _httpClient.put(uri, body: requestBody);
           break;
         case RestMethod.delete:
-          response = await _ioClient.delete(uri);
+          response = await _httpClient.delete(uri);
           break;
         case RestMethod.patch:
-          response = await _ioClient.patch(uri, body: requestBody);
+          response = await _httpClient.patch(uri, body: requestBody);
           break;
       }
 
@@ -56,9 +62,9 @@ class SimpleRestApi extends RestApi {
       );
     } on ClientException {
       return RestResponse<String>(
-        type: getResponseTypeFromCode(response.statusCode),
+        type: getResponseTypeFromCode(response?.statusCode),
         uri: uri,
-        content: response.body,
+        content: response?.body ?? '',
       );
     } catch (e) {
       return RestResponse<String>(

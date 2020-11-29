@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.6] Web Compatibility (2020-11-29)
+
+* The package is now compatible with Flutter Web.
+
 ## [0.2.5] Improvements to Services (2020-10-20)
 
 * Following the Equatable adoption, now JsonResponseModel is extending Equatable.

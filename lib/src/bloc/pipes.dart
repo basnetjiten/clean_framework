@@ -11,7 +11,10 @@ class Pipe<T> {
   Stream<T> get receive => _controller.stream;
   bool get hasListeners => _hasListeners;
 
-  Pipe._({StreamController controller, this.initialData, this.canSendDuplicateData = false}){
+  Pipe._(
+      {StreamController controller,
+      this.initialData,
+      this.canSendDuplicateData = false}) {
     _controller = controller ?? StreamController<T>.broadcast();
     _controller.onListen = () {
       _hasListeners = true;
@@ -19,11 +22,15 @@ class Pipe<T> {
   }
 
   factory Pipe({T initialData, bool canSendDuplicateData = false}) {
-    return Pipe._(initialData: initialData, canSendDuplicateData: canSendDuplicateData);
+    return Pipe._(
+        initialData: initialData, canSendDuplicateData: canSendDuplicateData);
   }
 
   factory Pipe.single({T initialData, bool canSendDuplicateData = false}) {
-    return Pipe._(controller: StreamController<T>(), initialData: initialData, canSendDuplicateData: canSendDuplicateData);
+    return Pipe._(
+        controller: StreamController<T>(),
+        initialData: initialData,
+        canSendDuplicateData: canSendDuplicateData);
   }
 
   void whenListenedDo(VoidCallback onListen) {
@@ -38,7 +45,8 @@ class Pipe<T> {
   }
 
   bool send(T data) {
-    if (_controller.isClosed || (canSendDuplicateData == false && _lastData == data)) return false;
+    if (_controller.isClosed ||
+        (canSendDuplicateData == false && _lastData == data)) return false;
     _lastData = data;
     _controller.sink.add(data);
     return true;
@@ -52,7 +60,8 @@ class Pipe<T> {
 }
 
 class EventPipe extends Pipe<void> {
-  EventPipe({VoidCallback onListen}) : super._(initialData: null, canSendDuplicateData: true);
+  EventPipe({VoidCallback onListen})
+      : super._(initialData: null, canSendDuplicateData: true);
   //EventPipe.single({VoidCallback onListen}) : super.single(initialData: null);
 
   @override
