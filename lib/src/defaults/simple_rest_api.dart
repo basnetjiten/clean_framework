@@ -4,20 +4,24 @@ import 'dart:io';
 import 'package:clean_framework/clean_framework.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:http/io_client.dart';
 
 class SimpleRestApi extends RestApi {
   final String baseUrl;
   final bool trustSelfSigned;
 
-  final Client _httpClient;
+  Client _httpClient;
 
   SimpleRestApi({
     this.baseUrl = 'http://127.0.0.1:8080/service/',
     this.trustSelfSigned = false,
-  }) : _httpClient = Client() {
-    if (!kIsWeb) {
-      (_httpClient as HttpClient).badCertificateCallback =
-          (cert, host, port) => trustSelfSigned;
+  }) {
+    if (kIsWeb) {
+      _httpClient = Client();
+    } else {
+      final innerClient = HttpClient()
+        ..badCertificateCallback = (cert, host, port) => trustSelfSigned;
+      _httpClient = IOClient(innerClient);
     }
   }
 
