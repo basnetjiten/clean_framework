@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.2.5+1] Web Compatibility (2020-11-29)
+## [0.2.6] Web Compatibility (2020-11-29)
 
 * The package is now compatible with Flutter Web.
 
