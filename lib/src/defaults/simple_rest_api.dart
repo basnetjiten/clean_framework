@@ -10,7 +10,7 @@ class SimpleRestApi extends RestApi {
   final String baseUrl;
   final bool trustSelfSigned;
 
-  BaseClient _httpClient;
+  Client _httpClient;
 
   SimpleRestApi({
     this.baseUrl = 'http://127.0.0.1:8080/service/',

@@ -6,4 +6,4 @@ import 'package:http/http.dart';
 ///
 /// import 'http_client/cross_client.dart'
 ///     if (dart.library.io) 'package:http/io_client.dart';
-BaseClient createHttpClient(bool trustSelfSigned) => Client();
+Client createHttpClient(bool trustSelfSigned) => Client();
