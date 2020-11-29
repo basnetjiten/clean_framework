@@ -19,5 +19,6 @@ class PaymentViewModel extends ViewModel {
       : assert(fromAccount != null && toAccount != null && amount != null);
 
   @override
-  List<Object> get props => [fromAccount, toAccount, amount, serviceStatus, dataStatus];
+  List<Object> get props =>
+      [fromAccount, toAccount, amount, serviceStatus, dataStatus];
 }
