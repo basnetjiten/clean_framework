@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.2.7] View Model Tester new methods (2021-01-11)
+
+* Adding flexible test helpers for view model bloc tests
 ## [0.2.6+1] Web Compatibility Hot Fix (2020-11-29)
 
 * Addressed warnings on imports for web compatibility.
