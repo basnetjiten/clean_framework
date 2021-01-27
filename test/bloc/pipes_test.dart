@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Pipe sends data', () async {
-    Pipe<String > testPipe = Pipe<String>(initialData: 'initial');
+    Pipe<String> testPipe = Pipe<String>(initialData: 'initial');
     expect(testPipe.hasListeners, isFalse);
     expect(testPipe.initialData, 'initial');
     testPipe.receive.listen(expectAsync1((value) {
@@ -22,7 +22,8 @@ void main() {
   }, timeout: Timeout(Duration(seconds: 3)));
 
   test('Pipe that allows duplication sends duplicated data', () async {
-    Pipe<String > testPipe = Pipe<String>(initialData: 'initial', canSendDuplicateData: true);
+    Pipe<String> testPipe =
+        Pipe<String>(initialData: 'initial', canSendDuplicateData: true);
     expect(testPipe.hasListeners, isFalse);
     expect(testPipe.initialData, 'initial');
     testPipe.receive.listen(expectAsync1((value) {
@@ -35,7 +36,6 @@ void main() {
 
     //Duplicated data is sent successfully
     testPipe.send('test');
-
   }, timeout: Timeout(Duration(seconds: 3)));
 
   test('Pipe emits data in order', () async {
@@ -59,9 +59,9 @@ void main() {
     expect(testPipe.hasListeners, isFalse);
     testPipe.receive.listen(expectAsync1((_) {}, max: 0, count: 0),
         onError: expectAsync1((error) {
-          expect(error, isNotNull);
-          testPipe.dispose();
-        }));
+      expect(error, isNotNull);
+      testPipe.dispose();
+    }));
     expect(testPipe.hasListeners, isTrue);
     testPipe.throwError(Error());
   }, timeout: Timeout(Duration(seconds: 3)));

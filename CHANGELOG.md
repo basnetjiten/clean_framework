@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.7] View Model Tester new methods (2021-01-11)
+
+* Adding flexible test helpers for view model bloc tests
+## [0.2.6+1] Web Compatibility Hot Fix (2020-11-29)
+
+* Addressed warnings on imports for web compatibility.
+## [0.2.6] Web Compatibility (2020-11-29)
+
+* The package is now compatible with Flutter Web.
+
 ## [0.2.5] Improvements to Services (2020-10-20)
 
 * Following the Equatable adoption, now JsonResponseModel is extending Equatable.

@@ -4,9 +4,9 @@ Clean Architecture components library, inspired on the guidelines created by Unc
 
 ## Learning Resources
 
-1. [Introduction](/doc/introduction.pdf), to understand the relatinship between the components
+1. [Introduction](https://github.com/MattHamburger/clean_framework/blob/master/doc/introduction.pdf), to understand the relationship between the components
 of the framework.
-2. [Mockoon Installation](/doc/mockoon.md), since the tests in the example folder require
+2. [Mockoon Installation](https://github.com/MattHamburger/clean_framework/blob/master/doc/mockoon.md), since the tests in the example folder require
 an instance of Mockoon running.
 
 
@@ -17,7 +17,7 @@ an instance of Mockoon running.
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-    clean_framework: ^0.2.4
+    clean_framework: ^0.2.6
 ```
 
 ### 2. Install it
@@ -76,7 +76,7 @@ The *API* module defines the logic for your API services, request, and response.
 
 * Every *Feature ServiceRequest* class should extend *Equatable* and implement *JsonRequestModel* from `clean_framework_defaults.dart`
 
-#####ServiceResponse
+##### ServiceResponse
 
 * Every *Feature ServiceResponse* class should extend *Equatable* and implement *JsonResponseModel* from `clean_framework_defaults.dart`
 

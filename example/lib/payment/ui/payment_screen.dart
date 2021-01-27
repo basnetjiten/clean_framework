@@ -47,7 +47,6 @@ class PaymentScreen extends Screen {
                 textTitle: 'Amount',
                 text: viewModel.amount.toString(),
                 onChangeTextField: (value) {
-
                   onChangeAmount(value);
                 },
               ),
@@ -72,7 +71,6 @@ class _TextFieldListTile extends ListTile {
   final String text;
   final Function onChangeTextField;
 
-
   _TextFieldListTile({
     this.textTitle,
     this.type,
@@ -83,12 +81,12 @@ class _TextFieldListTile extends ListTile {
   Widget _buildContentField(BuildContext context) {
     final textController = TextEditingController();
     textController.text = text;
-    textController.selection = TextSelection.fromPosition(TextPosition(offset: textController.text.length));
+    textController.selection = TextSelection.fromPosition(
+        TextPosition(offset: textController.text.length));
     return Container(
       child: TextField(
         controller: textController,
         keyboardType: (type == 'amount')
-
             ? TextInputType.numberWithOptions(signed: false, decimal: true)
             : TextInputType.number,
         enableInteractiveSelection: false,
