@@ -20,6 +20,15 @@ class SimpleRestApi extends RestApi {
     _ioClient = new IOClient(_httpClient);
   }
 
+
+  @override
+  Future<RestResponse> requestBinary(
+      {RestMethod method, String path, Map<String,
+          dynamic> requestBody = const {}}) {
+
+    return request(method: method, path: path, requestBody: requestBody);
+  }
+
   @override
   Future<RestResponse> request(
       {RestMethod method,
