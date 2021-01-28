@@ -1,13 +1,25 @@
+import 'dart:io';
 import 'package:clean_framework/clean_framework.dart';
 import 'package:flutter/widgets.dart';
 
 enum RestMethod { get, post, put, delete, patch }
+
+enum RestContentType {
+  json, html, binary, text, unknown
+}
+
 
 abstract class RestApi<T extends RestResponse> extends ExternalDependency {
   /// The Uri for the request is built inside ResApi, to give flexibility on
   /// how it is used. The path parameter corresponds to the Uri path, which
   /// doesn't hold the host, port and scheme.
   Future<T> request({
+    @required RestMethod method,
+    @required String path,
+    Map<String, dynamic> requestBody = const {},
+  });
+
+  Future<T> requestBinary({
     @required RestMethod method,
     @required String path,
     Map<String, dynamic> requestBody = const {},
@@ -21,14 +33,23 @@ class RestResponse<T> {
   final RestResponseType type;
   final T content;
   final Uri uri;
-
+  final RestContentType contentType;
   RestResponse({
     this.type = RestResponseType.unknown,
     this.content,
     this.uri,
+    this.contentType = RestContentType.unknown
   })  : assert(content != null),
         assert(uri != null);
 }
+
+final restContentTypeMap = {
+  ContentType.json.mimeType: RestContentType.json,
+  ContentType.html.mimeType : RestContentType.html,
+  ContentType.text.mimeType : RestContentType.text,
+  ContentType.binary.mimeType : RestContentType.binary,
+  'application/pdf': RestContentType.binary
+};
 
 enum RestResponseType {
   // Success
