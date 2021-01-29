@@ -12,7 +12,19 @@ class RestApiMock<C> extends RestApi {
         _responseType = responseType;
 
   @override
-  Future<RestResponse> request(
+  Future<RestResponse<C>> request(
+      {RestMethod method,
+      String path,
+      Map<String, dynamic> requestBody = const {}}) async {
+    return RestResponse<C>(
+      type: _responseType,
+      uri: Uri.http('', path),
+      content: _content,
+    );
+  }
+
+  @override
+  Future<RestResponse<C>> requestBinary(
       {RestMethod method,
       String path,
       Map<String, dynamic> requestBody = const {}}) async {

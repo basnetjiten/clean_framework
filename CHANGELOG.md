@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.2.8] Adding binary request to Rest Api (2021-01-29)
+
+* The new method should be implemented for non-json responses
 ## [0.2.7] View Model Tester new methods (2021-01-11)
 
 * Adding flexible test helpers for view model bloc tests
