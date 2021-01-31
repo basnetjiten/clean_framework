@@ -17,24 +17,24 @@ class SimpleRestApi extends RestApi {
     this.trustSelfSigned = false,
   }) : _httpClient = createHttpClient(trustSelfSigned);
 
-
   @override
-  Future<RestResponse> requestBinary(
-      {RestMethod method, String path, Map<String,
-          dynamic> requestBody = const {}}) {
-
+  Future<RestResponse> requestBinary({
+    required RestMethod method,
+    required String path,
+    Map<String, dynamic> requestBody = const {},
+  }) {
     return request(method: method, path: path, requestBody: requestBody);
   }
 
   @override
   Future<RestResponse> request({
-    RestMethod method,
-    String path,
+    required RestMethod method,
+    required String path,
     Map<String, dynamic> requestBody = const {},
   }) async {
-    assert(method != null && path != null && path.isNotEmpty);
+    assert(path.isNotEmpty);
 
-    Response response;
+    Response? response;
     Uri uri = Uri.parse(baseUrl + path);
 
     try {
@@ -62,10 +62,17 @@ class SimpleRestApi extends RestApi {
         content: response.body,
       );
     } on ClientException {
+      if (response == null) {
+        return RestResponse<String>(
+          type: RestResponseType.unknown,
+          uri: uri,
+          content: '',
+        );
+      }
       return RestResponse<String>(
-        type: getResponseTypeFromCode(response?.statusCode),
+        type: getResponseTypeFromCode(response.statusCode),
         uri: uri,
-        content: response?.body ?? '',
+        content: response.body,
       );
     } catch (e) {
       return RestResponse<String>(
