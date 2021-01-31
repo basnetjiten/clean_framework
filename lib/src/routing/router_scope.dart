@@ -1,11 +1,15 @@
 part of 'router.dart';
 
+/// The [routeName] to widget generator for [CFRouter].
 typedef CFRouteGenerator = Widget Function(String routeName);
 
+/// An inherited widget which is responsible for providing access to
+/// [CFRouter] instance to its descendants.
 class CFRouterScope extends InheritedWidget {
   final CFRouter _router;
   final String _initialRoute;
 
+  /// Create a CFRouter Scope.
   CFRouterScope({
     Key key,
     @required String initialRoute,
@@ -24,6 +28,9 @@ class CFRouterScope extends InheritedWidget {
         _initialRoute = initialRoute,
         super(child: Builder(builder: builder));
 
+  /// Returns the [CFRouter] found in the [context].
+  ///
+  /// Alternatively, [context.router] can be used.
   static CFRouter of(BuildContext context) {
     final _routerScope =
         context.dependOnInheritedWidgetOfExactType<CFRouterScope>();
