@@ -8,11 +8,16 @@ import 'example_locator.dart';
 void main() {
   logger().setLogLevel(LogLevel.verbose);
 
-  runApp(
-    MaterialApp(
+  runApp(_ExampleApp());
+}
+
+class _ExampleApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       home: ExampleFeatureWidget(),
-    ),
-  );
+    );
+  }
 }
 
 /// 8-Jul Changes
