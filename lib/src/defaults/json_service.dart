@@ -113,7 +113,7 @@ abstract class JsonService<
       return;
     } else if (response.type != RestResponseType.success) {
       if (!onError(response, _handler)) {
-        _handler.onError(response.type, response.content);
+        _handler.onError(response.type, response.content.toString());
         return;
       }
     }
@@ -127,13 +127,13 @@ abstract class JsonService<
       model = parseResponse(jsonResponse);
     } on Error catch (e) {
       Locator().logger.debug('JsonService response parse error', e.toString());
-      _handler.onInvalidResponse(response.content);
+      _handler.onInvalidResponse(response.content.toString());
       return;
     } on Exception catch (e) {
       Locator()
           .logger
           .debug('JsonService response parse exception', e.toString());
-      _handler.onInvalidResponse(response.content);
+      _handler.onInvalidResponse(response.content.toString());
       return;
     }
 
