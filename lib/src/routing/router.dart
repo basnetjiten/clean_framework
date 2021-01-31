@@ -11,12 +11,13 @@ part 'router_scope.dart';
 class CFRouter {
   @visibleForTesting
   final EventPipe updatePipe = EventPipe();
+  final String initialRouteName;
   final CFRouteGenerator generator;
 
   CFRouter({
-    @required String initialRoute,
+    @required this.initialRouteName,
     @required this.generator,
-  }) : _pages = [generator(initialRoute)];
+  }) : _pages = [generator(initialRouteName)];
 
   List<CFRoutePage> _pages;
   List<CFRoutePage> get pages => _pages;
@@ -78,6 +79,11 @@ class CFRouter {
         routeInfoList.isNotEmpty, 'There should be at least one initial route');
     _pages = routeInfoList.map((r) => generator(r.name, r.arguments)).toList();
     _notifyUpdate();
+  }
+
+  bool reset() {
+    _pages = [generator(initialRouteName)];
+    return _notifyUpdate();
   }
 
   bool updateInitialRoute(String initialRoute) {

@@ -14,7 +14,8 @@ class CFRouterScope extends InheritedWidget {
     @required String initialRoute,
     @required CFRouteGenerator generator,
     @required @required WidgetBuilder builder,
-  })  : _router = CFRouter(initialRoute: initialRoute, generator: generator),
+  })  : _router =
+            CFRouter(initialRouteName: initialRoute, generator: generator),
         _initialRoute = initialRoute,
         super(child: Builder(builder: builder));
 

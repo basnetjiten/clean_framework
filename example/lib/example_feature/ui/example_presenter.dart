@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:clean_framework/clean_framework.dart';
 import 'package:clean_framework_example/example_feature/bloc/example_bloc.dart';
-import 'package:clean_framework_example/payment/ui/payment_feature_widget.dart';
+import 'package:clean_framework_example/routes.dart';
 import 'package:flutter/material.dart';
 
 import 'example_screen.dart';
@@ -32,16 +32,8 @@ class ExamplePresenter
     return ExampleScreen(
       viewModel: viewModel,
       navigateToMakePayment: () {
-        _navigateToMakePayment(context);
+        context.router.push(Routes.payment);
       },
     );
-  }
-
-  void _navigateToMakePayment(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: RouteSettings(name: 'PaymentFeatureWidget'),
-            builder: (context) => PaymentFeatureWidget()));
   }
 }
