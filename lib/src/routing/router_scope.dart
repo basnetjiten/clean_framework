@@ -25,7 +25,15 @@ class CFRouterScope extends InheritedWidget {
         super(child: Builder(builder: builder));
 
   static CFRouter of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<CFRouterScope>()._router;
+    final _routerScope =
+        context.dependOnInheritedWidgetOfExactType<CFRouterScope>();
+    assert(
+      _routerScope != null,
+      'No CFRouterScope ancestor found.\n'
+      'CFRouterScope must be at the root of your widget tree in order to access CFRouter, '
+      'either using CFRouterScope.of(context) or context.router',
+    );
+    return _routerScope._router;
   }
 
   @override
