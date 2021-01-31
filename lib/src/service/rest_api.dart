@@ -1,13 +1,9 @@
-import 'dart:io';
 import 'package:clean_framework/clean_framework.dart';
 import 'package:flutter/widgets.dart';
 
 enum RestMethod { get, post, put, delete, patch }
 
-enum RestContentType {
-  json, html, binary, text, unknown
-}
-
+enum RestContentType { json, html, binary, text, unknown }
 
 abstract class RestApi<T extends RestResponse> extends ExternalDependency {
   /// The Uri for the request is built inside ResApi, to give flexibility on
@@ -34,20 +30,20 @@ class RestResponse<T> {
   final T content;
   final Uri uri;
   final RestContentType contentType;
-  RestResponse({
-    this.type = RestResponseType.unknown,
-    this.content,
-    this.uri,
-    this.contentType = RestContentType.unknown
-  })  : assert(content != null),
+  RestResponse(
+      {this.type = RestResponseType.unknown,
+      this.content,
+      this.uri,
+      this.contentType = RestContentType.unknown})
+      : assert(content != null),
         assert(uri != null);
 }
 
 final restContentTypeMap = {
-  ContentType.json.mimeType: RestContentType.json,
-  ContentType.html.mimeType : RestContentType.html,
-  ContentType.text.mimeType : RestContentType.text,
-  ContentType.binary.mimeType : RestContentType.binary,
+  'application/json; charset=utf-8': RestContentType.json,
+  'text/html; charset=utf-8': RestContentType.html,
+  'text/plain; charset=utf-8': RestContentType.text,
+  'application/octet-stream': RestContentType.binary,
   'application/pdf': RestContentType.binary
 };
 
