@@ -7,9 +7,7 @@ abstract class ServiceAdapter<E extends Entity, R extends JsonRequestModel,
     M extends JsonResponseModel, S extends EitherService<R, M>> {
   final S _service;
 
-  ServiceAdapter(S service, {R requestModel})
-      : assert(service != null),
-        _service = service;
+  ServiceAdapter(S service) : _service = service;
 
   Future<Entity> query(E initialEntity) async {
     final eitherResponse =
@@ -29,8 +27,5 @@ abstract class ServiceAdapter<E extends Entity, R extends JsonRequestModel,
     return initialEntity.merge(errors: [GeneralEntityFailure()]);
   }
 
-  /// override if needed
-  R createRequest(E entity) {
-    return null;
-  }
+  R createRequest(E entity);
 }
