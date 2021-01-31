@@ -12,12 +12,12 @@ class CFRouter {
   @protected
   final EventPipe updatePipe = EventPipe();
   final String initialRouteName;
-  final CFRouteGenerator generator;
+  final CFRouteGenerator routeGenerator;
 
   CFRouter({
     @required this.initialRouteName,
-    @required this.generator,
-  }) : _pages = [generator(initialRouteName)];
+    @required this.routeGenerator,
+  }) : _pages = [routeGenerator(initialRouteName)];
 
   List<CFRoutePage> _pages;
   List<CFRoutePage> get pages => _pages;
@@ -35,7 +35,7 @@ class CFRouter {
   }
 
   Future<T> push<T>(String routeName, [Object arguments]) {
-    final routePage = generator<T>(routeName, arguments);
+    final routePage = routeGenerator<T>(routeName, arguments);
     _pages
       ..removeWhere((page) => page.name == routeName)
       ..add(routePage);
@@ -44,7 +44,7 @@ class CFRouter {
   }
 
   Future<T> replaceWith<T>(String routeName, {Object arguments}) {
-    final routePage = generator<T>(routeName, arguments);
+    final routePage = routeGenerator<T>(routeName, arguments);
     _pages
       ..removeWhere((page) => page.name == routeName)
       ..removeLast()
@@ -77,17 +77,18 @@ class CFRouter {
   void update(List<CFRouteInformation> routeInfoList) {
     assert(
         routeInfoList.isNotEmpty, 'There should be at least one initial route');
-    _pages = routeInfoList.map((r) => generator(r.name, r.arguments)).toList();
+    _pages =
+        routeInfoList.map((r) => routeGenerator(r.name, r.arguments)).toList();
     _notifyUpdate();
   }
 
   bool reset() {
-    _pages = [generator(initialRouteName)];
+    _pages = [routeGenerator(initialRouteName)];
     return _notifyUpdate();
   }
 
   bool updateInitialRoute(String initialRoute) {
-    _pages = [generator(initialRoute)];
+    _pages = [routeGenerator(initialRoute)];
     return _notifyUpdate();
   }
 
