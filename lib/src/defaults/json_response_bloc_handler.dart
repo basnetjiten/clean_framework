@@ -24,7 +24,7 @@ class JsonResponseBlocHandler<B extends ErrorPublisherBloc,
   }
 
   @override
-  void onInvalidRequest(Map<String, dynamic> requestJson) {
+  void onInvalidRequest(Map<String, dynamic>? requestJson) {
     bloc.handleError(PublishedErrorType.general);
     hadError = true;
   }

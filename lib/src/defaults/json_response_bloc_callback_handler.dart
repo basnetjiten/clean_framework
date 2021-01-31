@@ -23,7 +23,7 @@ class JsonResponseBlocCallbackHandler<M extends JsonResponseModel>
   }
 
   @override
-  void onInvalidRequest(Map<String, dynamic> requestJson) {
+  void onInvalidRequest(Map<String, dynamic>? requestJson) {
     error(PublishedErrorType.general);
   }
 
