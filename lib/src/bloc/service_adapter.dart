@@ -27,5 +27,6 @@ abstract class ServiceAdapter<E extends Entity, R extends JsonRequestModel,
     return initialEntity.merge(errors: [GeneralEntityFailure()]);
   }
 
-  R createRequest(E entity);
+  // Override if needed.
+  R? createRequest(E entity) => null;
 }
