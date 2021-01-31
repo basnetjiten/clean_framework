@@ -24,9 +24,7 @@ class CFRouterScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(CFRouterScope oldWidget) {
-    if (oldWidget._initialRoute != _initialRoute) {
-      return _router.updateInitialRoute(_initialRoute);
-    }
-    return false;
+    if (oldWidget._initialRoute == _initialRoute) return false;
+    return _router.updateInitialRoute(_initialRoute);
   }
 }
