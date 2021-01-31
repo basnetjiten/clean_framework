@@ -9,9 +9,7 @@ class JsonResponseBlocHandler<B extends ErrorPublisherBloc,
   final ModelCallback<M> success;
   bool hadError = false;
 
-  JsonResponseBlocHandler({this.bloc, this.success})
-      : assert(bloc != null),
-        assert(success != null);
+  JsonResponseBlocHandler({required this.bloc, required this.success});
 
   @override
   void onError(RestResponseType responseType, String response) {

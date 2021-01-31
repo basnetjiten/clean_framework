@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:clean_framework/clean_framework.dart';
 import 'package:either_option/either_option.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import 'json_service.dart';
 
