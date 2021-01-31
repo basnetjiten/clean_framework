@@ -1,6 +1,6 @@
 part of 'router.dart';
 
-typedef RouteGenerator = Widget Function(String routeName);
+typedef CFRouteGenerator = Widget Function(String routeName);
 
 class CFRouterScope extends InheritedWidget {
   final CFRouter _router;
@@ -9,7 +9,7 @@ class CFRouterScope extends InheritedWidget {
   CFRouterScope({
     Key key,
     @required String initialRoute,
-    @required RouteGenerator routeGenerator,
+    @required CFRouteGenerator routeGenerator,
     @required @required WidgetBuilder builder,
   })  : _router = CFRouter(
           initialRouteName: initialRoute,
