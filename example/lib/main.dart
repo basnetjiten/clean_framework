@@ -15,7 +15,7 @@ class _ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return CFRouterScope(
       initialRoute: Routes.example,
-      generator: Routes.generate,
+      routeGenerator: Routes.generate,
       builder: (context) {
         return MaterialApp.router(
           routeInformationParser: CFRouteInformationParser(),

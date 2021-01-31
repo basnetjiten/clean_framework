@@ -8,16 +8,21 @@ import '../bloc/pipes.dart';
 part 'route_page.dart';
 part 'router_scope.dart';
 
+typedef CFRoutePageGenerator<T> = CFRoutePage<T> Function<T>(
+  String routeName, [
+  Object arguments,
+]);
+
 class CFRouter {
   @protected
   final EventPipe updatePipe = EventPipe();
   final String initialRouteName;
-  final CFRouteGenerator routeGenerator;
+  final CFRoutePageGenerator routePageGenerator;
 
   CFRouter({
     @required this.initialRouteName,
-    @required this.routeGenerator,
-  }) : _pages = [routeGenerator(initialRouteName)];
+    @required this.routePageGenerator,
+  }) : _pages = [routePageGenerator(initialRouteName)];
 
   List<CFRoutePage> _pages;
   List<CFRoutePage> get pages => _pages;
@@ -35,7 +40,7 @@ class CFRouter {
   }
 
   Future<T> push<T>(String routeName, [Object arguments]) {
-    final routePage = routeGenerator<T>(routeName, arguments);
+    final routePage = routePageGenerator<T>(routeName, arguments);
     _pages
       ..removeWhere((page) => page.name == routeName)
       ..add(routePage);
@@ -44,7 +49,7 @@ class CFRouter {
   }
 
   Future<T> replaceWith<T>(String routeName, {Object arguments}) {
-    final routePage = routeGenerator<T>(routeName, arguments);
+    final routePage = routePageGenerator<T>(routeName, arguments);
     _pages
       ..removeWhere((page) => page.name == routeName)
       ..removeLast()
@@ -77,18 +82,19 @@ class CFRouter {
   void update(List<CFRouteInformation> routeInfoList) {
     assert(
         routeInfoList.isNotEmpty, 'There should be at least one initial route');
-    _pages =
-        routeInfoList.map((r) => routeGenerator(r.name, r.arguments)).toList();
+    _pages = routeInfoList
+        .map((r) => routePageGenerator(r.name, r.arguments))
+        .toList();
     _notifyUpdate();
   }
 
   bool reset() {
-    _pages = [routeGenerator(initialRouteName)];
+    _pages = [routePageGenerator(initialRouteName)];
     return _notifyUpdate();
   }
 
   bool updateInitialRoute(String initialRoute) {
-    _pages = [routeGenerator(initialRoute)];
+    _pages = [routePageGenerator(initialRoute)];
     return _notifyUpdate();
   }
 
