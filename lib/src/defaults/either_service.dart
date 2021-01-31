@@ -17,19 +17,17 @@ abstract class EitherService<R extends JsonRequestModel,
 
   final String path;
 
-  EitherService(
-      {@required RestMethod method,
-      @required this.path,
-      @required RestApi restApi})
-      : assert(method != null),
-        assert(path != null && path.isNotEmpty),
-        assert(restApi != null),
+  EitherService({
+    required RestMethod method,
+    required this.path,
+    required RestApi restApi,
+  })   : assert(path.isNotEmpty),
         _path = path,
         _method = method,
         _restApi = restApi;
 
   @override
-  Future<Either<ServiceFailure, S>> request({R requestModel}) async {
+  Future<Either<ServiceFailure, S>> request({R? requestModel}) async {
     if (await Locator().connectivity.getConnectivityStatus() ==
         ConnectivityStatus.offline) {
       Locator().logger.debug('JsonService response no connectivity error');
@@ -56,7 +54,7 @@ abstract class EitherService<R extends JsonRequestModel,
     S model;
 
     try {
-      final content = response?.content as String ?? '';
+      final content = response.content.toString();
       final Map<String, dynamic> jsonResponse =
           (content.isEmpty) ? {} : json.decode(content) ?? <String, dynamic>{};
 
@@ -80,10 +78,7 @@ abstract class EitherService<R extends JsonRequestModel,
 
   bool isRequestModelJsonValid(Map<String, dynamic> json) {
     try {
-      if (json == null || json.isEmpty) {
-        return false;
-      }
-      if (_jsonContainsNull(json)) return false;
+      if (json.isEmpty || _jsonContainsNull(json)) return false;
     } catch (e) {
       return false;
     }
