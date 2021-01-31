@@ -9,7 +9,7 @@ part 'route_page.dart';
 part 'router_scope.dart';
 
 class CFRouter {
-  @visibleForTesting
+  @protected
   final EventPipe updatePipe = EventPipe();
   final String initialRouteName;
   final CFRouteGenerator generator;

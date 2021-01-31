@@ -15,7 +15,7 @@ class CFRouterDelegate extends RouterDelegate<CFRouteInformation>
     BuildContext context, {
     GlobalKey<NavigatorState> navigatorKey,
   }) : navigatorKey = navigatorKey ?? GlobalObjectKey<NavigatorState>(context) {
-    // ignore: invalid_use_of_visible_for_testing_member
+    // ignore: invalid_use_of_protected_member
     _router = CFRouterScope.of(context)..updatePipe.listen(notifyListeners);
   }
 
