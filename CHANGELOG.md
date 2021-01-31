@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.0] Introduced new routing mechanism (2021-01-31)
+
+* Added high level APIs for Navigator 2.0 / Page-based Navigation.
+
+  [Read here for more detail](https://github.com/MattHamburger/clean_framework/blob/master/doc/routing.md).
+
 ## [0.2.8] Adding binary request to Rest Api (2021-01-29)
 
 * The new method should be implemented for non-json responses
