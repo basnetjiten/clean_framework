@@ -78,46 +78,51 @@ class PaymentPresenter
               title: Text('Success'),
               content: Text('Submit Succeeded'),
               actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).popUntil((route) {
-                        return route.isFirst;
-                      });
-                    },
-                    child: Text('OK'))
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) {
+                      return route.isFirst;
+                    });
+                  },
+                  child: Text('OK'),
+                ),
               ],
             ));
   }
 
   void _showErrorDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('Error'),
-              content: Text('Submit Failed'),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('OK'))
-              ],
-            ));
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Error'),
+        content: Text('Submit Failed'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showInvalidDataDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('Invalid'),
-              content: Text('Data entered is incorrect.'),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('OK'))
-              ],
-            ));
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Invalid'),
+        content: Text('Data entered is incorrect.'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 }
