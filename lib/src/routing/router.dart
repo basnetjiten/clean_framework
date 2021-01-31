@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 
 import '../bloc/pipes.dart';
 
-part 'router_scope.dart';
 part 'route_page.dart';
+part 'router_scope.dart';
 
 class CFRouter {
   @visibleForTesting

@@ -17,3 +17,4 @@ export 'package:clean_framework/src/service/rest_api.dart';
 export 'package:clean_framework/src/service/service.dart';
 export 'package:clean_framework/src/ui/presenter.dart';
 export 'package:clean_framework/src/ui/screen.dart';
+export 'package:clean_framework/src/routing/routing.dart';
