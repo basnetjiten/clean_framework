@@ -48,7 +48,7 @@ class ViewModelPipeTester<V extends ViewModel> {
   }
 
   Future<void> _launchAction() async {
-    if(_launch == null) return;
+    if (_launch == null) return;
     completer = Completer<ViewModelPipeTester>();
     _launch?.call();
     await completer.future.timeout(const Duration(seconds: 3),

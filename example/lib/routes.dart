@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class Routes {
   ///
   static const String example = '/';
+
   ///
   static const String payment = '/payment';
 
