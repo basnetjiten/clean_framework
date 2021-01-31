@@ -27,6 +27,11 @@ class CFRouteInformation {
 
   CFRouteInformation({@required this.name, this.arguments});
 
+  factory CFRouteInformation.fromLocation(String location) {
+    final uri = Uri.parse(location);
+    return CFRouteInformation(name: uri.path, arguments: uri.queryParameters);
+  }
+
   String get location {
     if (arguments is Map<String, dynamic>) {
       if ((arguments as Map).isEmpty) return name;
