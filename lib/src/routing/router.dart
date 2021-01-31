@@ -39,7 +39,7 @@ class CFRouter {
     return _pages[_previousPageIndex];
   }
 
-  Future<T> push<T>(String routeName, [Object arguments]) {
+  Future<T> push<T>(String routeName, {Object arguments}) {
     final routePage = routePageGenerator<T>(routeName, arguments);
     _pages
       ..removeWhere((page) => page.name == routeName)
