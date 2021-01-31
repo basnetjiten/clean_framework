@@ -21,7 +21,7 @@ class CFRouterDelegate extends RouterDelegate<CFRouteInformation>
 
   @override
   Future<void> setNewRoutePath(CFRouteInformation configuration) {
-    _router.push(configuration.name, configuration.arguments);
+    _router.push(configuration.name, arguments: configuration.arguments);
     return SynchronousFuture(null);
   }
 
