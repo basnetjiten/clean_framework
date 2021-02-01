@@ -30,7 +30,7 @@ class ExampleScreen extends Screen {
                 title: Text('Login Count'),
                 subtitle: Text(viewModel.loginCount.toString()),
               ),
-              RaisedButton(
+              ElevatedButton(
                 child: Text('Make Payment'),
                 onPressed: () {
                   navigateToMakePayment();

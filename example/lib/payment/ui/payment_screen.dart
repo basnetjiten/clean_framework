@@ -19,49 +19,48 @@ class PaymentScreen extends Screen {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Payment'),
+      appBar: AppBar(
+        title: Text('Payment'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            _TextFieldListTile(
+              type: 'text',
+              textTitle: 'From Account',
+              text: viewModel.fromAccount,
+              onChangeTextField: (value) {
+                onChangeFromAccount(value);
+              },
+            ),
+            _TextFieldListTile(
+              type: 'text',
+              textTitle: 'To Account',
+              text: viewModel.toAccount,
+              onChangeTextField: (value) {
+                onChangeToAccount(value);
+              },
+            ),
+            _TextFieldListTile(
+              type: 'amount',
+              textTitle: 'Amount',
+              text: viewModel.amount.toString(),
+              onChangeTextField: (value) {
+                onChangeAmount(value);
+              },
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
+              child: ElevatedButton(
+                child: Text('Submit'),
+                onPressed: onTapSubmit,
+              ),
+            ),
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              _TextFieldListTile(
-                type: 'text',
-                textTitle: 'From Account',
-                text: viewModel.fromAccount,
-                onChangeTextField: (value) {
-                  onChangeFromAccount(value);
-                },
-              ),
-              _TextFieldListTile(
-                type: 'text',
-                textTitle: 'To Account',
-                text: viewModel.toAccount,
-                onChangeTextField: (value) {
-                  onChangeToAccount(value);
-                },
-              ),
-              _TextFieldListTile(
-                type: 'amount',
-                textTitle: 'Amount',
-                text: viewModel.amount.toString(),
-                onChangeTextField: (value) {
-                  onChangeAmount(value);
-                },
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
-                child: RaisedButton(
-                  child: Text('Submit'),
-                  onPressed: () {
-                    onTapSubmit();
-                  },
-                ),
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
 
