@@ -6,7 +6,8 @@ Clean Architecture components library, inspired on the guidelines created by Unc
 
 1. [Introduction](https://github.com/MattHamburger/clean_framework/blob/master/doc/introduction.pdf), to understand the relationship between the components
 of the framework.
-2. [Mockoon Installation](https://github.com/MattHamburger/clean_framework/blob/master/doc/mockoon.md), since the tests in the example folder require
+2. [Navigating with CFRouter](https://github.com/MattHamburger/clean_framework/blob/master/doc/routing.md), to start using high level Navigator 2.0 APIs bundled with Clean Framework.
+3. [Mockoon Installation](https://github.com/MattHamburger/clean_framework/blob/master/doc/mockoon.md), since the tests in the example folder require
 an instance of Mockoon running.
 
 
@@ -17,7 +18,7 @@ an instance of Mockoon running.
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-    clean_framework: ^0.2.6
+    clean_framework: ^0.3.0
 ```
 
 ### 2. Install it

@@ -4,7 +4,6 @@ import 'package:clean_framework/clean_framework.dart';
 import 'package:clean_framework_example/payment/bloc/payment_bloc.dart';
 import 'package:clean_framework_example/payment/model/payment_view_model.dart';
 import 'package:clean_framework_example/payment/ui/payment_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -73,51 +72,55 @@ class PaymentPresenter
 
   void _navigateToDetailScreen(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('Success'),
-              content: Text('Submit Succeeded'),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).popUntil((route) {
-                        return route.isFirst;
-                      });
-                    },
-                    child: Text('OK'))
-              ],
-            ));
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Success'),
+        content: Text('Submit Succeeded'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              context.router.reset();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showErrorDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('Error'),
-              content: Text('Submit Failed'),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('OK'))
-              ],
-            ));
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Error'),
+        content: Text('Submit Failed'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showInvalidDataDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('Invalid'),
-              content: Text('Data entered is incorrect.'),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('OK'))
-              ],
-            ));
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Invalid'),
+        content: Text('Data entered is incorrect.'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,18 +1,29 @@
 import 'package:clean_framework/clean_framework.dart';
-import 'package:clean_framework_example/example_feature/ui/example_feature_widget.dart';
+import 'package:clean_framework_example/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'example_locator.dart';
 
 void main() {
   logger().setLogLevel(LogLevel.verbose);
 
-  runApp(
-    MaterialApp(
-      home: ExampleFeatureWidget(),
-    ),
-  );
+  runApp(_ExampleApp());
+}
+
+class _ExampleApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CFRouterScope(
+      initialRoute: Routes.example,
+      routeGenerator: Routes.generate,
+      builder: (context) {
+        return MaterialApp.router(
+          routeInformationParser: CFRouteInformationParser(),
+          routerDelegate: CFRouterDelegate(context),
+        );
+      },
+    );
+  }
 }
 
 /// 8-Jul Changes

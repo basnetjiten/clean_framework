@@ -6,12 +6,19 @@ import 'package:http/http.dart';
 import 'http_client/cross_client.dart'
     if (dart.library.io) 'http_client/io_client.dart';
 
+/// A simple rest api where the response is generally obtained in plain string form.
 class SimpleRestApi extends RestApi {
+  /// The base url.
   final String baseUrl;
+
+  /// Whether to trust self-signed certificates or not.
+  ///
+  /// Defaults to false.
   final bool trustSelfSigned;
 
   Client _httpClient;
 
+  /// Creates a SimpleRestApi.
   SimpleRestApi({
     this.baseUrl = 'http://127.0.0.1:8080/service/',
     this.trustSelfSigned = false,
