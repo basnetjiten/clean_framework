@@ -1,5 +1,8 @@
 # Clean Framework
 
+[![pub package](https://img.shields.io/pub/v/clean_framework.svg?include_prereleases)](https://pub.dartlang.org/packages/clean_framework)
+[![licence](https://img.shields.io/badge/licence-BSD-brightgreen.svg)](https://github.com/MattHamburger/clean_framework/blob/master/LICENSE)
+
 Clean Architecture components library, inspired on the guidelines created by Uncle Bob.
 
 ## Learning Resources
