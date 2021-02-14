@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 class ViewModelPipeTester<V extends ViewModel> {
   Function? _launch;
   final Pipe<V> _publisher;
-  Completer<ViewModelPipeTester>? completer;
+  Completer<void>? completer;
   bool hasInitialViewModelBeenReceived = false;
   V? receivedViewModel;
   late StreamSubscription _pipeSubscription;
@@ -43,7 +43,7 @@ class ViewModelPipeTester<V extends ViewModel> {
   /// Returns true when the model had to be completed.
   Future<bool> _waitForInitialModelIfNeeded() async {
     if (hasInitialViewModelBeenReceived) return false;
-    completer = Completer<ViewModelPipeTester>();
+    completer = Completer<void>();
     await completer!.future.timeout(
       const Duration(seconds: 3),
       onTimeout: () => throw NeverReceivedInitialViewModelPipeTesterError(),
@@ -53,8 +53,8 @@ class ViewModelPipeTester<V extends ViewModel> {
 
   Future<void> _launchAction() async {
     if (_launch == null) return;
-    completer = Completer<ViewModelPipeTester>();
-    _launch?.call();
+    completer = Completer<void>();
+    _launch!();
     await completer!.future.timeout(
       const Duration(seconds: 3),
       onTimeout: () => throw NeverReceivedUpdatedViewModelPipeTesterError(),
@@ -78,7 +78,7 @@ class ViewModelPipeTester<V extends ViewModel> {
 
     // forEach is asynchronous in Dart, this is to force it to be synchronous
     for (final item in items) {
-      completer = Completer<ViewModelPipeTester>();
+      completer = Completer<void>();
       await completer!.future.timeout(
         const Duration(seconds: 3),
         onTimeout: () => throw NeverReceivedUpdatedViewModelPipeTesterError(),
