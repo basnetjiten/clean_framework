@@ -4,32 +4,34 @@ import 'package:clean_framework/clean_framework.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class ViewModelPipeTester<V extends ViewModel> {
-  Function _launch;
+  Function? _launch;
   final Pipe<V> _publisher;
-  Completer<ViewModelPipeTester> completer;
+  Completer<ViewModelPipeTester>? completer;
   bool hasInitialViewModelBeenReceived = false;
-  V receivedViewModel;
-  StreamSubscription _pipeSubscription;
+  V? receivedViewModel;
+  late StreamSubscription _pipeSubscription;
 
   ViewModelPipeTester._(Pipe<V> publisher) : _publisher = publisher {
-    _pipeSubscription = _publisher.receive.listen((output) async {
+    _pipeSubscription = _publisher.receive.listen((output) {
       receivedViewModel = output;
-      completer.complete();
+      completer?.complete();
 
       hasInitialViewModelBeenReceived = true;
     });
   }
 
   static ViewModelPipeTester forPipe<V extends ViewModel>(Pipe<V> publisher) {
-    if (publisher.whenListenedDo == null)
+    if (publisher.whenListenedDo == null) {
       throw MissingListenedCallbackPipeTesterError();
+    }
     return ViewModelPipeTester._(publisher);
   }
 
   ViewModelPipeTester whenBeingListenedTo() {
     // This empty step exists to make the test code more verbose
-    if (hasInitialViewModelBeenReceived)
+    if (hasInitialViewModelBeenReceived) {
       throw InitialViewModelAlreadySentPipeTesterError();
+    }
     return this;
   }
 
@@ -42,29 +44,31 @@ class ViewModelPipeTester<V extends ViewModel> {
   Future<bool> _waitForInitialModelIfNeeded() async {
     if (hasInitialViewModelBeenReceived) return false;
     completer = Completer<ViewModelPipeTester>();
-    await completer.future.timeout(const Duration(seconds: 3),
-        onTimeout: () => throw NeverReceivedInitialViewModelPipeTesterError());
+    await completer!.future.timeout(
+      const Duration(seconds: 3),
+      onTimeout: () => throw NeverReceivedInitialViewModelPipeTesterError(),
+    );
     return true;
   }
 
   Future<void> _launchAction() async {
-    if(_launch == null) return;
+    if (_launch == null) return;
     completer = Completer<ViewModelPipeTester>();
     _launch?.call();
-    await completer.future.timeout(const Duration(seconds: 3),
-        onTimeout: () => throw NeverReceivedUpdatedViewModelPipeTesterError());
+    await completer!.future.timeout(
+      const Duration(seconds: 3),
+      onTimeout: () => throw NeverReceivedUpdatedViewModelPipeTesterError(),
+    );
   }
 
   Future<void> thenExpectAnyModel() async {
     await _waitForInitialModelIfNeeded();
     await _launchAction();
-    return this;
   }
 
   Future<void> thenExpectA(V item) async {
     await thenExpectAnyModel();
     expect(receivedViewModel, item);
-    return this;
   }
 
   Future<void> thenExpectInOrder(List<V> items) async {
@@ -73,15 +77,14 @@ class ViewModelPipeTester<V extends ViewModel> {
     _launch?.call();
 
     // forEach is asynchronous in Dart, this is to force it to be synchronous
-    for (int i = 0; i < items.length; i++) {
+    for (final item in items) {
       completer = Completer<ViewModelPipeTester>();
-      await completer.future.timeout(const Duration(seconds: 3),
-          onTimeout: () =>
-              throw NeverReceivedUpdatedViewModelPipeTesterError());
-      expect(receivedViewModel, items[i]);
+      await completer!.future.timeout(
+        const Duration(seconds: 3),
+        onTimeout: () => throw NeverReceivedUpdatedViewModelPipeTesterError(),
+      );
+      expect(receivedViewModel, item);
     }
-
-    return this;
   }
 
   void dispose() {
