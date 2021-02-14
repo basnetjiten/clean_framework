@@ -13,7 +13,6 @@ dependencies:
   flutter_test:
     sdk: flutter
 
-  either_option: ^1.0.6
   equatable: ^2.0.0-nullsafety.3
   http: ^0.13.0
   provider: ^5.0.0-nullsafety.3
