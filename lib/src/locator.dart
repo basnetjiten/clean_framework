@@ -2,13 +2,11 @@ import 'package:clean_framework/clean_framework.dart';
 import 'package:clean_framework/clean_framework_defaults.dart';
 
 class Locator {
-  static Locator instance;
+  static Locator? _instance;
 
   Locator._();
-  factory Locator() {
-    instance ??= Locator._();
-    return instance;
-  }
+
+  factory Locator() => _instance ??= Locator._();
 
   Logger logger = ConsoleLogger();
 
