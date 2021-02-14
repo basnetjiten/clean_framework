@@ -28,10 +28,11 @@ void main() {
       home: BlocProvider<TestBlocWithService>(
         create: (_) => TestBlocWithService(),
         child: TestResponseHandlerWidget<TestBlocWithService>(
-            onError: expectAsync1((errorType) {
-              expect(errorType, PublishedErrorType.general);
-            }),
-            child: TestPresenter<TestBlocWithService>()),
+          onError: expectAsync1((errorType) {
+            expect(errorType, PublishedErrorType.general);
+          }),
+          child: TestPresenter<TestBlocWithService>(),
+        ),
       ),
     );
 

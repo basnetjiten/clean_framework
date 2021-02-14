@@ -64,22 +64,15 @@ class SimpleRestApi extends RestApi {
       }
 
       return RestResponse<String>(
-        type: RestResponseType.success,
+        type: getResponseTypeFromCode(response.statusCode),
         uri: uri,
         content: response.body,
       );
     } on ClientException {
-      if (response == null) {
-        return RestResponse<String>(
-          type: RestResponseType.unknown,
-          uri: uri,
-          content: '',
-        );
-      }
       return RestResponse<String>(
-        type: getResponseTypeFromCode(response.statusCode),
+        type: getResponseTypeFromCode(response?.statusCode),
         uri: uri,
-        content: response.body,
+        content: response?.body ?? '',
       );
     } catch (e) {
       return RestResponse<String>(

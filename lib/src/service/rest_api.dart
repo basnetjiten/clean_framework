@@ -57,7 +57,7 @@ abstract class RestApi<T extends RestResponse> extends ExternalDependency {
   });
 
   /// Resolve to [RestResponseType] form status [code].
-  RestResponseType getResponseTypeFromCode(int code) =>
+  RestResponseType getResponseTypeFromCode(int? code) =>
       _responseCodeToRestResponseTypeMap[code] ?? RestResponseType.unknown;
 }
 
