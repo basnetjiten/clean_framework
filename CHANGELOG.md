@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.0] Null Safety Release (2021-02-14)
+
+* Stable null safety release.
+
 ## [0.3.0] Introduced new routing mechanism (2021-01-31)
 
 * Added high level APIs for Navigator 2.0 / Page-based Navigation.
