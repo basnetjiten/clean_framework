@@ -18,7 +18,7 @@ class SimpleRestApi extends RestApi {
   }) : _httpClient = createHttpClient(trustSelfSigned);
 
   @override
-  Future<RestResponse> requestBinary({
+  Future<RestResponse<String>> requestBinary({
     required RestMethod method,
     required String path,
     Map<String, dynamic> requestBody = const {},
@@ -27,7 +27,7 @@ class SimpleRestApi extends RestApi {
   }
 
   @override
-  Future<RestResponse> request({
+  Future<RestResponse<String>> request({
     required RestMethod method,
     required String path,
     Map<String, dynamic> requestBody = const {},

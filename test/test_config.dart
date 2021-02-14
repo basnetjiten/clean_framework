@@ -9,10 +9,9 @@ final defaultLogLevel = LogLevel.error;
 
 class TestLocator implements Locator {
   TestLocator._();
-  factory TestLocator() {
-    Locator.instance ??= TestLocator._();
-    return Locator.instance;
-  }
+
+  factory TestLocator() =>
+      (Locator.instance ??= TestLocator._()) as TestLocator;
 
   @override
   Connectivity connectivity = AlwaysOnlineConnectivity();
