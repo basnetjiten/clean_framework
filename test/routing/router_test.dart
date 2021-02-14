@@ -485,7 +485,7 @@ void main() {
 
 Widget buildWidget({
   String initialRoute = '/',
-  @required CFRouteGenerator generator,
+  required CFRouteGenerator generator,
 }) {
   return CFRouterScope(
     initialRoute: initialRoute,
@@ -501,9 +501,9 @@ Widget buildWidget({
 
 class OnTapPage extends StatelessWidget {
   final String id;
-  final void Function(BuildContext) onTap;
+  final void Function(BuildContext)? onTap;
 
-  const OnTapPage({Key key, @required this.id, this.onTap}) : super(key: key);
+  const OnTapPage({Key? key, required this.id, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ part 'router_scope.dart';
 /// A [CFRoutePage] generator.
 typedef CFRoutePageGenerator<T> = CFRoutePage<T> Function<T>(
   String routeName, [
-  Object arguments,
+  Object? arguments,
 ]);
 
 /// The router which provides functionality to mutate the navigation stack.
@@ -31,8 +31,8 @@ class CFRouter {
 
   /// Creates a CFRouter.
   CFRouter({
-    @required this.initialRouteName,
-    @required this.routePageGenerator,
+    required this.initialRouteName,
+    required this.routePageGenerator,
   }) : _pages = [routePageGenerator(initialRouteName)];
 
   List<CFRoutePage> _pages;
@@ -47,7 +47,7 @@ class CFRouter {
   }
 
   /// The [CFRoutePage] just below the [currentPage] in the navigation stack.
-  CFRoutePage get previousPage {
+  CFRoutePage? get previousPage {
     // Returns null if there's no previous route.
     final _previousPageIndex = _pages.length - 2;
     if (_previousPageIndex.isNegative) return null;
@@ -56,7 +56,7 @@ class CFRouter {
 
   /// Push the route resolved by [routeName] onto the navigation stack,
   /// optionally with an [arguments].
-  Future<T> push<T>(String routeName, {Object arguments}) {
+  Future<T> push<T>(String routeName, {Object? arguments}) {
     final routePage = routePageGenerator<T>(routeName, arguments);
     _pages
       ..removeWhere((page) => page.name == routeName)
@@ -67,7 +67,7 @@ class CFRouter {
 
   /// Replaces the current route with the route resolved by [routeName] onto the navigation stack,
   /// optionally with an [arguments].
-  Future<T> replaceWith<T>(String routeName, {Object arguments}) {
+  Future<T> replaceWith<T>(String routeName, {Object? arguments}) {
     final routePage = routePageGenerator<T>(routeName, arguments);
     _pages
       ..removeWhere((page) => page.name == routeName)
@@ -78,7 +78,7 @@ class CFRouter {
   }
 
   /// Pop the top-most route off the navigation stack.
-  bool pop<T>([T value]) {
+  bool pop<T>([T? value]) {
     if (_pages.length < 2) return false;
     final _lastRoutePage = _pages.last;
     _pages.removeLast();

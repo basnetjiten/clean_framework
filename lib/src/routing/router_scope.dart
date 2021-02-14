@@ -11,13 +11,13 @@ class CFRouterScope extends InheritedWidget {
 
   /// Create a CFRouter Scope.
   CFRouterScope({
-    Key key,
-    @required String initialRoute,
-    @required CFRouteGenerator routeGenerator,
-    @required @required WidgetBuilder builder,
-  })  : _router = CFRouter(
+    Key? key,
+    required String initialRoute,
+    required CFRouteGenerator routeGenerator,
+    required WidgetBuilder builder,
+  })   : _router = CFRouter(
           initialRouteName: initialRoute,
-          routePageGenerator: <T>(String routeName, [Object arguments]) {
+          routePageGenerator: <T>(String routeName, [Object? arguments]) {
             return CFRoutePage<T>(
               child: routeGenerator(routeName),
               name: routeName,
@@ -40,7 +40,7 @@ class CFRouterScope extends InheritedWidget {
       'CFRouterScope must be at the root of your widget tree in order to access CFRouter, '
       'either using CFRouterScope.of(context) or context.router',
     );
-    return _routerScope._router;
+    return _routerScope!._router;
   }
 
   @override

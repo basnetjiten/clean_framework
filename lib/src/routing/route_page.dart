@@ -6,9 +6,9 @@ class CFRoutePage<T> extends MaterialPage {
 
   /// Creates a CFRoutePage.
   CFRoutePage({
-    @required Widget child,
-    @required String name,
-    Object arguments,
+    required Widget child,
+    required String name,
+    Object? arguments,
   }) : super(
           child: child,
           name: name,
@@ -18,7 +18,7 @@ class CFRoutePage<T> extends MaterialPage {
 
   /// The [CFRouteInformation] extracted from the [CFRoutePage].
   CFRouteInformation get information =>
-      CFRouteInformation(name: name, arguments: arguments);
+      CFRouteInformation(name: name!, arguments: arguments);
 
   @override
   String toString() => 'CFRoutePage<$T>(name: $name, args: $arguments)';
@@ -30,13 +30,14 @@ class CFRouteInformation {
   final String name;
 
   /// The arguments associated with the route.
-  final Object arguments;
+  final Object? arguments;
 
   /// Create a route information with the [name] and [arguments].
-  CFRouteInformation({@required this.name, this.arguments});
+  CFRouteInformation({required this.name, this.arguments});
 
   /// Create a route information by parsing the given [location] string.
-  factory CFRouteInformation.fromLocation(String location) {
+  factory CFRouteInformation.fromLocation(String? location) {
+    if (location == null) return CFRouteInformation(name: '');
     final uri = Uri.parse(location);
     return CFRouteInformation(name: uri.path, arguments: uri.queryParameters);
   }
@@ -45,7 +46,10 @@ class CFRouteInformation {
   String get location {
     if (arguments is Map<String, dynamic>) {
       if ((arguments as Map).isEmpty) return name;
-      return Uri(path: name, queryParameters: arguments).toString();
+      return Uri(
+        path: name,
+        queryParameters: arguments as Map<String, dynamic>,
+      ).toString();
     }
     return name;
   }
