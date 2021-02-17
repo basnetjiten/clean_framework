@@ -21,9 +21,6 @@ class ViewModelPipeTester<V extends ViewModel> {
   }
 
   static ViewModelPipeTester forPipe<V extends ViewModel>(Pipe<V> publisher) {
-    if (publisher.whenListenedDo == null) {
-      throw MissingListenedCallbackPipeTesterError();
-    }
     return ViewModelPipeTester._(publisher);
   }
 

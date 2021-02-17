@@ -37,10 +37,10 @@ class Pipe<T> {
     );
   }
 
-  void whenListenedDo(VoidCallback? onListen) {
+  void whenListenedDo(VoidCallback onListen) {
     _controller.onListen = () {
       _hasListeners = true;
-      if (onListen != null) onListen();
+      onListen();
     };
   }
 
