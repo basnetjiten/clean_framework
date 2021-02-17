@@ -9,12 +9,12 @@ extension BlocProviderExtension on BuildContext {
 /// If provider of same type is found above [BlocProvider],
 /// new instance won't be create. i.e. [create] will be ignored.
 class BlocProvider<B extends Bloc> extends StatefulWidget {
-  final B Function(BuildContext)? create;
+  final B Function(BuildContext) create;
   final Widget child;
 
   const BlocProvider({
     Key? key,
-    this.create,
+    required this.create,
     required this.child,
   }) : super(key: key);
 
@@ -35,8 +35,7 @@ class _BlocProviderState<B extends Bloc> extends State<BlocProvider<B>> {
       try {
         _bloc = context.read<B>();
       } on ProviderNotFoundException catch (_) {
-        if (widget.create == null) rethrow;
-        _bloc = widget.create!(context);
+        _bloc = widget.create(context);
       }
     }
   }
