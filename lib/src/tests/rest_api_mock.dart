@@ -1,21 +1,21 @@
 import 'package:clean_framework/clean_framework.dart';
-import 'package:flutter/foundation.dart';
 
-class RestApiMock<C> extends RestApi {
+class RestApiMock<C extends Object> extends RestApi {
   C _content;
   RestResponseType _responseType;
 
-  RestApiMock(
-      {@required C content,
-      RestResponseType responseType = RestResponseType.success})
-      : _content = content,
+  RestApiMock({
+    required C content,
+    RestResponseType responseType = RestResponseType.success,
+  })  : _content = content,
         _responseType = responseType;
 
   @override
-  Future<RestResponse<C>> request(
-      {RestMethod method,
-      String path,
-      Map<String, dynamic> requestBody = const {}}) async {
+  Future<RestResponse<C>> request({
+    required RestMethod method,
+    required String path,
+    Map<String, dynamic> requestBody = const {},
+  }) async {
     return RestResponse<C>(
       type: _responseType,
       uri: Uri.http('', path),
@@ -24,10 +24,11 @@ class RestApiMock<C> extends RestApi {
   }
 
   @override
-  Future<RestResponse<C>> requestBinary(
-      {RestMethod method,
-      String path,
-      Map<String, dynamic> requestBody = const {}}) async {
+  Future<RestResponse<C>> requestBinary({
+    required RestMethod method,
+    required String path,
+    Map<String, dynamic> requestBody = const {},
+  }) async {
     return RestResponse<C>(
       type: _responseType,
       uri: Uri.http('', path),

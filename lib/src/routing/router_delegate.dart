@@ -12,7 +12,7 @@ class CFRouterDelegate extends RouterDelegate<CFRouteInformation>
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
-  CFRouter _router;
+  late CFRouter _router;
 
   /// The underlying [CFRouter].
   CFRouter get router => _router;
@@ -20,7 +20,7 @@ class CFRouterDelegate extends RouterDelegate<CFRouteInformation>
   /// Creates a CFRouterDelegate.
   CFRouterDelegate(
     BuildContext context, {
-    GlobalKey<NavigatorState> navigatorKey,
+    GlobalKey<NavigatorState>? navigatorKey,
   }) : navigatorKey = navigatorKey ?? GlobalObjectKey<NavigatorState>(context) {
     // ignore: invalid_use_of_protected_member
     _router = CFRouterScope.of(context)..updatePipe.listen(notifyListeners);

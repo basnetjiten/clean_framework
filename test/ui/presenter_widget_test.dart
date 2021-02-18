@@ -28,10 +28,11 @@ void main() {
       home: BlocProvider<TestBlocWithService>(
         create: (_) => TestBlocWithService(),
         child: TestResponseHandlerWidget<TestBlocWithService>(
-            onError: expectAsync1((errorType) {
-              expect(errorType, PublishedErrorType.general);
-            }),
-            child: TestPresenter<TestBlocWithService>()),
+          onError: expectAsync1((errorType) {
+            expect(errorType, PublishedErrorType.general);
+          }),
+          child: TestPresenter<TestBlocWithService>(),
+        ),
       ),
     );
 
@@ -60,7 +61,7 @@ class TestPresenter<B extends TestBloc>
 class TestScreen extends Screen {
   final TestViewModel viewModel;
 
-  TestScreen({@required this.viewModel});
+  TestScreen({required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +94,8 @@ class TestBloc extends ErrorPublisherBloc {
 }
 
 class TestBlocWithService extends TestBloc {
-  JsonResponseBlocHandler<TestBloc, TestResponseModel> handler;
-  TestService _service;
+  late JsonResponseBlocHandler<TestBloc, TestResponseModel> handler;
+  late TestService _service;
 
   TestBusinessModel _businessModel = TestBusinessModel();
 

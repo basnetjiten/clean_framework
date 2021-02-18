@@ -10,9 +10,7 @@ class JsonResponseBlocCallbackHandler<M extends JsonResponseModel>
   final SuccessCallback<M> success;
   final ErrorCallback error;
 
-  JsonResponseBlocCallbackHandler({this.success, this.error})
-      : assert(error != null),
-        assert(success != null);
+  JsonResponseBlocCallbackHandler({required this.success, required this.error});
 
   @override
   void onError(RestResponseType responseType, String response) {
@@ -25,7 +23,7 @@ class JsonResponseBlocCallbackHandler<M extends JsonResponseModel>
   }
 
   @override
-  void onInvalidRequest(Map<String, dynamic> requestJson) {
+  void onInvalidRequest(Map<String, dynamic>? requestJson) {
     error(PublishedErrorType.general);
   }
 

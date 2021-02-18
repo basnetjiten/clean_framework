@@ -7,7 +7,7 @@ class TestResponseHandlerWidget<B extends ErrorPublisherBloc>
   final Function(PublishedErrorType) onError;
 
   const TestResponseHandlerWidget(
-      {Key key, @required this.onError, @required this.child})
+      {Key? key, required this.onError, required this.child})
       : super(key: key);
 
   @override
@@ -21,10 +21,9 @@ class _TestResponseHandlerWidgetState<B extends ErrorPublisherBloc>
   void initState() {
     super.initState();
     B bloc = BlocProvider.of<B>(context);
-    if (bloc != null)
-      bloc.errorPipe.receive.listen((PublishedErrorType errorType) {
-        widget.onError(errorType);
-      });
+    bloc.errorPipe.receive.listen((PublishedErrorType errorType) {
+      widget.onError(errorType);
+    });
   }
 
   @override

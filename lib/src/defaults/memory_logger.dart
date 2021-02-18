@@ -14,37 +14,37 @@ class MemoryLogger implements Logger {
   void setLogLevel(LogLevel level) => this._level = level;
 
   @override
-  void fatal(message, [error, StackTrace stackTrace]) {
+  void fatal(message, [error, StackTrace? stackTrace]) {
     if (_level.index >= LogLevel.fatal.index)
       _logBuffer.write('[FATAL]: $message\n');
   }
 
   @override
-  void error(message, [error, StackTrace stackTrace]) {
+  void error(message, [error, StackTrace? stackTrace]) {
     if (_level.index >= LogLevel.error.index)
       _logBuffer.write('[ERROR]: $message\n');
   }
 
   @override
-  void warning(message, [error, StackTrace stackTrace]) {
+  void warning(message, [error, StackTrace? stackTrace]) {
     if (_level.index >= LogLevel.warning.index)
       _logBuffer.write('[WARNING]: $message\n');
   }
 
   @override
-  void info(message, [error, StackTrace stackTrace]) {
+  void info(message, [error, StackTrace? stackTrace]) {
     if (_level.index >= LogLevel.info.index)
       _logBuffer.write('[INFO]: $message\n');
   }
 
   @override
-  void debug(message, [error, StackTrace stackTrace]) {
+  void debug(message, [error, StackTrace? stackTrace]) {
     if (_level.index >= LogLevel.debug.index)
       _logBuffer.write('[DEBUG]: $message\n');
   }
 
   @override
-  void verbose(message, [error, StackTrace stackTrace]) {
+  void verbose(message, [error, StackTrace? stackTrace]) {
     if (_level.index >= LogLevel.verbose.index)
       _logBuffer.write('[VERBOSE]: $message\n');
   }

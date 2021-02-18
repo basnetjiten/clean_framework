@@ -5,24 +5,28 @@ class PaymentEntity extends Entity {
   final String toAccount;
   final double amount;
 
-  PaymentEntity(
-      {List<EntityFailure> errors = const [],
-      String fromAccount,
-      String toAccount,
-      this.amount = 0.0})
-      : fromAccount = fromAccount ?? '',
-        toAccount = toAccount ?? '',
-        super(errors: errors);
+  PaymentEntity({
+    List<EntityFailure> errors = const [],
+    this.fromAccount = '',
+    this.toAccount = '',
+    this.amount = 0.0,
+  }) : super(errors: errors);
 
   @override
   List<Object> get props => [errors, fromAccount, toAccount, amount];
 
   @override
-  merge({errors, String fromAccount, String toAccount, double amount}) {
+  PaymentEntity merge({
+    List<EntityFailure>? errors,
+    String? fromAccount,
+    String? toAccount,
+    double? amount,
+  }) {
     return PaymentEntity(
-        errors: errors ?? this.errors,
-        fromAccount: fromAccount ?? this.fromAccount,
-        toAccount: toAccount ?? this.toAccount,
-        amount: amount ?? this.amount);
+      errors: errors ?? this.errors,
+      fromAccount: fromAccount ?? this.fromAccount,
+      toAccount: toAccount ?? this.toAccount,
+      amount: amount ?? this.amount,
+    );
   }
 }

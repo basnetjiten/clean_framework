@@ -4,8 +4,7 @@ class ExampleViewModel extends ViewModel {
   final DateTime lastLogin;
   final int loginCount;
 
-  ExampleViewModel({this.lastLogin, this.loginCount})
-      : assert(lastLogin is DateTime && loginCount != null);
+  ExampleViewModel({required this.lastLogin, required this.loginCount});
 
   @override
   List<Object> get props => [lastLogin, loginCount];

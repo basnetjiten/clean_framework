@@ -108,7 +108,7 @@ class TestJsonResponseModel extends JsonResponseModel {
   final int field;
   final String optionalField;
 
-  TestJsonResponseModel({this.field, this.optionalField});
+  TestJsonResponseModel({required this.field, required this.optionalField});
 
   @override
   List<Object> get props => [field, optionalField];

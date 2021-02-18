@@ -28,34 +28,32 @@ abstract class JsonService<
   RestApi _restApi;
   RestMethod _method;
   H _handler;
-  String _resolvedPath;
+  String? _resolvedPath;
 
   final String path;
 
   @visibleForTesting
-  String get resolvedPath => _resolvedPath;
+  String? get resolvedPath => _resolvedPath;
 
-  JsonService({H handler, RestMethod method, this.path, RestApi restApi})
-      : assert(() {
-          return handler != null &&
-              method != null &&
-              path != null &&
-              path.isNotEmpty &&
-              restApi != null;
-        }()),
+  JsonService({
+    required H handler,
+    required RestMethod method,
+    required this.path,
+    required RestApi restApi,
+  })   : assert(path.isNotEmpty),
         _handler = handler,
         _method = method,
         _restApi = restApi;
 
   @override
-  Future<void> request({R requestModel}) async {
+  Future<void> request({R? requestModel}) async {
     if (await Locator().connectivity.getConnectivityStatus() ==
         ConnectivityStatus.offline) {
       _handler.onNoConnectivity();
       return;
     }
 
-    Map<String, dynamic> requestJson;
+    Map<String, dynamic> requestJson = {};
     if (requestModel != null) {
       requestJson = requestModel.toJson();
       if (!isRequestModelJsonValid(requestJson)) {
@@ -72,7 +70,7 @@ abstract class JsonService<
 
     final pathUri = Uri.parse(path);
 
-    final injectedQueryParams = pathUri.queryParameters?.map(
+    final injectedQueryParams = pathUri.queryParameters.map(
       (k, v) => MapEntry(
         k,
         _isVariable(v) ? requestJson[_removeWrapper(v)]?.toString() : v,
@@ -90,7 +88,7 @@ abstract class JsonService<
       (match) {
         final value = requestJson[match.group(1)];
         if (value == null) _pathSubstitutionSuccess = false;
-        return value?.toString();
+        return value?.toString() ?? '';
       },
     );
     if (!_pathSubstitutionSuccess) {
@@ -101,13 +99,12 @@ abstract class JsonService<
 
     _resolvedPath = Uri(
       path: injectedPath,
-      queryParameters:
-          (injectedQueryParams?.isEmpty ?? true) ? null : injectedQueryParams,
+      queryParameters: injectedQueryParams.isEmpty ? null : injectedQueryParams,
     ).toString();
 
     final response = await _restApi.request(
       method: _method,
-      path: _resolvedPath,
+      path: _resolvedPath!,
       requestBody: requestJson,
     );
 
@@ -116,7 +113,7 @@ abstract class JsonService<
       return;
     } else if (response.type != RestResponseType.success) {
       if (!onError(response, _handler)) {
-        _handler.onError(response.type, response.content);
+        _handler.onError(response.type, response.content.toString());
         return;
       }
     }
@@ -124,19 +121,19 @@ abstract class JsonService<
     S model;
 
     try {
-      final content = response?.content as String ?? '';
+      final content = response.content.toString();
       final Map<String, dynamic> jsonResponse =
           (content.isEmpty) ? {} : json.decode(content) ?? <String, dynamic>{};
       model = parseResponse(jsonResponse);
     } on Error catch (e) {
       Locator().logger.debug('JsonService response parse error', e.toString());
-      _handler.onInvalidResponse(response.content);
+      _handler.onInvalidResponse(response.content.toString());
       return;
     } on Exception catch (e) {
       Locator()
           .logger
           .debug('JsonService response parse exception', e.toString());
-      _handler.onInvalidResponse(response.content);
+      _handler.onInvalidResponse(response.content.toString());
       return;
     }
 
@@ -151,10 +148,7 @@ abstract class JsonService<
 
   bool isRequestModelJsonValid(Map<String, dynamic> json) {
     try {
-      if (json == null || json.isEmpty) {
-        return false;
-      }
-      if (_jsonContainsNull(json)) return false;
+      if (json.isEmpty || _jsonContainsNull(json)) return false;
     } catch (e) {
       return false;
     }
@@ -183,7 +177,7 @@ abstract class JsonService<
 abstract class JsonServiceResponseHandler<S extends JsonResponseModel>
     extends ServiceResponseHandler<S> {
   void onMissingPathData(Map<String, dynamic> requestJson);
-  void onInvalidRequest(Map<String, dynamic> requestJson);
+  void onInvalidRequest(Map<String, dynamic>? requestJson);
   void onInvalidResponse(String response);
   void onError(RestResponseType responseType, String response);
 }

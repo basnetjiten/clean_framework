@@ -28,4 +28,4 @@ linter:
     - prefer_is_not_empty
     - prefer_single_quotes
     - type_init_formals
-    - public_member_api_docs
+    #- public_member_api_docs

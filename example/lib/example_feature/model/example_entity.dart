@@ -4,19 +4,26 @@ class ExampleEntity extends Entity {
   final DateTime lastLogin;
   final int loginCount;
 
-  ExampleEntity(
-      {List<EntityFailure> errors, DateTime lastLogin, this.loginCount = 0})
-      : lastLogin = lastLogin ?? DateTime.now(),
+  ExampleEntity({
+    List<EntityFailure> errors = const [],
+    DateTime? lastLogin,
+    this.loginCount = 0,
+  })  : lastLogin = lastLogin ?? DateTime.now(),
         super(errors: errors);
 
   @override
   List<Object> get props => [errors, lastLogin, loginCount];
 
   @override
-  merge({errors, DateTime lastLogin, int loginCount}) {
+  ExampleEntity merge({
+    List<EntityFailure>? errors,
+    DateTime? lastLogin,
+    int? loginCount,
+  }) {
     return ExampleEntity(
-        errors: errors ?? this.errors,
-        lastLogin: lastLogin ?? this.lastLogin,
-        loginCount: loginCount ?? this.loginCount);
+      errors: errors ?? this.errors,
+      lastLogin: lastLogin ?? this.lastLogin,
+      loginCount: loginCount ?? this.loginCount,
+    );
   }
 }

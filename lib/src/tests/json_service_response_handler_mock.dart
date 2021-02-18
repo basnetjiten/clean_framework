@@ -3,8 +3,8 @@ import 'package:clean_framework/clean_framework_defaults.dart';
 
 class JsonServiceResponseHandlerMock<M extends JsonResponseModel>
     implements JsonServiceResponseHandler<M> {
-  PublishedErrorType errorType;
-  M responseModel;
+  PublishedErrorType? errorType;
+  M? responseModel;
 
   void reset() => errorType = null;
 
@@ -13,7 +13,7 @@ class JsonServiceResponseHandlerMock<M extends JsonResponseModel>
       errorType = PublishedErrorType.general;
 
   @override
-  void onInvalidRequest(Map<String, dynamic> requestJson) =>
+  void onInvalidRequest(Map<String, dynamic>? requestJson) =>
       errorType = PublishedErrorType.general;
 
   @override

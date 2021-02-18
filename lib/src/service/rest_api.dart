@@ -1,5 +1,4 @@
 import 'package:clean_framework/clean_framework.dart';
-import 'package:meta/meta.dart';
 
 /// The HTTP methods.
 enum RestMethod {
@@ -45,20 +44,20 @@ abstract class RestApi<T extends RestResponse> extends ExternalDependency {
   /// how it is used. The path parameter corresponds to the Uri path, which
   /// doesn't hold the host, port and scheme.
   Future<T> request({
-    @required RestMethod method,
-    @required String path,
+    required RestMethod method,
+    required String path,
     Map<String, dynamic> requestBody = const {},
   });
 
   /// Request for binary data.
   Future<T> requestBinary({
-    @required RestMethod method,
-    @required String path,
+    required RestMethod method,
+    required String path,
     Map<String, dynamic> requestBody = const {},
   });
 
   /// Resolve to [RestResponseType] form status [code].
-  RestResponseType getResponseTypeFromCode(int code) =>
+  RestResponseType getResponseTypeFromCode(int? code) =>
       _responseCodeToRestResponseTypeMap[code] ?? RestResponseType.unknown;
 }
 
@@ -67,7 +66,7 @@ class RestResponse<T> {
   /// The type of response. See [RestResponseType].
   final RestResponseType type;
 
-  /// The actual content of the reponse.
+  /// The actual content of the response.
   final T content;
 
   /// The uri to where the request was made.
@@ -79,11 +78,10 @@ class RestResponse<T> {
   /// Creates a RestResponse.
   RestResponse({
     this.type = RestResponseType.unknown,
-    this.content,
-    this.uri,
+    required this.content,
+    required this.uri,
     this.contentType = RestContentType.unknown,
-  })  : assert(content != null),
-        assert(uri != null);
+  });
 }
 
 ///

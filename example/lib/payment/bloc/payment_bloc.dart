@@ -1,10 +1,9 @@
 import 'package:clean_framework/clean_framework.dart';
-import 'package:clean_framework_example/example_feature/api/example_service.dart';
 import 'package:clean_framework_example/payment/bloc/payment_usecase.dart';
 import 'package:clean_framework_example/payment/model/payment_view_model.dart';
 
 class PaymentBloc extends Bloc {
-  PaymentUseCase _paymentUseCase;
+  late final PaymentUseCase _paymentUseCase;
 
   final paymentViewModelPipe = Pipe<PaymentViewModel>();
   final amountPipe = Pipe<double>();
@@ -21,10 +20,9 @@ class PaymentBloc extends Bloc {
     submitPipe.dispose();
   }
 
-  PaymentBloc({ExampleService exampleService}) {
-    _paymentUseCase =
-        PaymentUseCase((viewModel) => paymentViewModelPipe.send(viewModel));
-    paymentViewModelPipe.whenListenedDo(() => _paymentUseCase.create());
+  PaymentBloc() {
+    _paymentUseCase = PaymentUseCase(paymentViewModelPipe.send);
+    paymentViewModelPipe.whenListenedDo(_paymentUseCase.create);
 
     amountPipe.receive.listen(amountInputHandler);
     fromAccountPipe.receive.listen(fromAccountInputHandler);

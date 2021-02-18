@@ -13,9 +13,9 @@ class BlocProvider<B extends Bloc> extends StatefulWidget {
   final Widget child;
 
   const BlocProvider({
-    Key key,
-    this.create,
-    @required this.child,
+    Key? key,
+    required this.create,
+    required this.child,
   }) : super(key: key);
 
   static of<B extends Bloc>(BuildContext context) =>
@@ -26,7 +26,7 @@ class BlocProvider<B extends Bloc> extends StatefulWidget {
 }
 
 class _BlocProviderState<B extends Bloc> extends State<BlocProvider<B>> {
-  B _bloc;
+  B? _bloc;
 
   @override
   void didChangeDependencies() {
@@ -35,7 +35,6 @@ class _BlocProviderState<B extends Bloc> extends State<BlocProvider<B>> {
       try {
         _bloc = context.read<B>();
       } on ProviderNotFoundException catch (_) {
-        if (widget.create == null) rethrow;
         _bloc = widget.create(context);
       }
     }
@@ -44,9 +43,9 @@ class _BlocProviderState<B extends Bloc> extends State<BlocProvider<B>> {
   @override
   Widget build(BuildContext context) {
     return Provider<B>(
-      create: (_) => _bloc,
+      create: (_) => _bloc!,
       child: widget.child,
-      dispose: (_, __) => _bloc.dispose(),
+      dispose: (_, __) => _bloc!.dispose(),
     );
   }
 }

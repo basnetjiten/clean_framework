@@ -69,7 +69,6 @@ void main() {
   test('EventPipe launches successfully', () async {
     EventPipe testPipe = EventPipe();
     expect(testPipe.hasListeners, isFalse);
-    expect(testPipe.receive, isNull);
 
     testPipe.listen(expectAsync0(() {
       testPipe.dispose();
@@ -77,5 +76,10 @@ void main() {
 
     expect(testPipe.hasListeners, isTrue);
     testPipe.launch();
+  }, timeout: Timeout(Duration(seconds: 3)));
+
+  test('EventPipe throws error on trying to receive data on it', () async {
+    EventPipe testPipe = EventPipe();
+    expect(() => testPipe.receive, throwsStateError);
   }, timeout: Timeout(Duration(seconds: 3)));
 }

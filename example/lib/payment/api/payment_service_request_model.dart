@@ -6,14 +6,18 @@ class PaymentServiceRequestModel extends Equatable implements JsonRequestModel {
   final String toAccount;
   final double amount;
 
-  PaymentServiceRequestModel({this.amount, this.fromAccount, this.toAccount});
+  PaymentServiceRequestModel({
+    required this.amount,
+    required this.fromAccount,
+    required this.toAccount,
+  });
 
   @override
   Map<String, dynamic> toJson() {
     return {
       'fromAccount': fromAccount,
       'toAccount': toAccount,
-      'amount': amount.toString()
+      'amount': amount.toString(),
     };
   }
 

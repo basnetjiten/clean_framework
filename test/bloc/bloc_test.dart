@@ -11,10 +11,12 @@ void main() {
 
     await tester
         .whenDoing(() => bloc.sendMultipleModelsEvent.launch())
-        .thenExpectInOrder([
-      SimpleViewModel(1),
-      SimpleViewModel(2),
-    ]);
+        .thenExpectInOrder(
+      [
+        SimpleViewModel(1),
+        SimpleViewModel(2),
+      ],
+    );
 
     await tester
         .whenDoing(() => bloc.resetEvent.launch())

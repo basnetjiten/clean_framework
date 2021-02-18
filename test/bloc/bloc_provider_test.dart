@@ -20,7 +20,7 @@ void main() {
   testWidgets(
       'new bloc won\'t be created if bloc of same type is found in ancestor',
       (tester) async {
-    BuildContext _context;
+    late BuildContext _context;
     final widget = BlocProvider<TestBloc>(
       create: (_) => TestBloc(2),
       child: BlocProvider<TestBloc>(
@@ -43,7 +43,7 @@ void main() {
   testWidgets(
       'new bloc will be created if bloc of same type is not found in ancestor',
       (tester) async {
-    BuildContext _context;
+    late BuildContext _context;
     final widget = BlocProvider<TestBloc>(
       create: (_) => TestBloc(1),
       child: Builder(
@@ -61,7 +61,7 @@ void main() {
   });
 
   testWidgets('bloc provider test with extension', (tester) async {
-    BuildContext _context;
+    late BuildContext _context;
     final widget = Provider<TestBloc>(
       create: (_) => TestBloc(2),
       child: BlocProvider(
@@ -83,7 +83,7 @@ void main() {
 
   // Only for comparing with behaviour of bloc provider
   testWidgets('provider test', (tester) async {
-    BuildContext _context;
+    late BuildContext _context;
     final widget = Provider<TestBloc>(
       create: (_) => TestBloc(2),
       child: Provider(

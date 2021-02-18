@@ -12,8 +12,8 @@ class Entity extends Equatable {
   bool hasErrors() => errors.isNotEmpty;
   bool hasError(EntityFailure error) => errors.indexOf(error) > 0;
 
-  merge({errors}) {
-    return Entity(errors: errors);
+  Entity merge({List<EntityFailure>? errors}) {
+    return Entity(errors: errors ?? this.errors);
   }
 
   @override

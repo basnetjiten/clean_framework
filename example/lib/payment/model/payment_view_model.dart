@@ -10,13 +10,13 @@ class PaymentViewModel extends ViewModel {
   final serviceStatus;
   final dataStatus;
 
-  PaymentViewModel(
-      {this.fromAccount,
-      this.toAccount,
-      this.amount,
-      this.serviceStatus = ServiceStatus.unknown,
-      this.dataStatus = DataStatus.unknown})
-      : assert(fromAccount != null && toAccount != null && amount != null);
+  PaymentViewModel({
+    required this.fromAccount,
+    required this.toAccount,
+    required this.amount,
+    this.serviceStatus = ServiceStatus.unknown,
+    this.dataStatus = DataStatus.unknown,
+  });
 
   @override
   List<Object> get props =>

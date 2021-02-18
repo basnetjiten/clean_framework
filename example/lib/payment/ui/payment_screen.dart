@@ -9,12 +9,13 @@ class PaymentScreen extends Screen {
   final Function onChangeAmount;
   final VoidCallback onTapSubmit;
 
-  PaymentScreen(
-      {this.viewModel,
-      this.onChangeFromAccount,
-      this.onChangeToAccount,
-      this.onChangeAmount,
-      this.onTapSubmit});
+  PaymentScreen({
+    required this.viewModel,
+    required this.onChangeFromAccount,
+    required this.onChangeToAccount,
+    required this.onChangeAmount,
+    required this.onTapSubmit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +72,10 @@ class _TextFieldListTile extends ListTile {
   final Function onChangeTextField;
 
   _TextFieldListTile({
-    this.textTitle,
-    this.type,
-    this.text,
-    this.onChangeTextField,
+    required this.textTitle,
+    required this.type,
+    required this.text,
+    required this.onChangeTextField,
   });
 
   Widget _buildContentField(BuildContext context) {

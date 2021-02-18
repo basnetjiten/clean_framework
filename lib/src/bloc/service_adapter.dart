@@ -7,9 +7,7 @@ abstract class ServiceAdapter<E extends Entity, R extends JsonRequestModel,
     M extends JsonResponseModel, S extends EitherService<R, M>> {
   final S _service;
 
-  ServiceAdapter(S service, {R requestModel})
-      : assert(service != null),
-        _service = service;
+  ServiceAdapter(S service) : _service = service;
 
   Future<Entity> query(E initialEntity) async {
     final eitherResponse =
@@ -18,19 +16,18 @@ abstract class ServiceAdapter<E extends Entity, R extends JsonRequestModel,
         .fold((error) => createEntityWithError(initialEntity, error),
             (responseModel) {
       final errorClearedEntity = initialEntity.merge(errors: <EntityFailure>[]);
-      return createEntity(errorClearedEntity, responseModel);
+      return createEntity(errorClearedEntity as E, responseModel);
     });
   }
 
   E createEntity(E initialEntity, M responseModel);
   E createEntityWithError(E initialEntity, ServiceFailure error) {
-    if (error is NoConnectivityServiceFailure)
-      return initialEntity.merge(errors: [NoConnectivityEntityFailure()]);
-    return initialEntity.merge(errors: [GeneralEntityFailure()]);
+    if (error is NoConnectivityServiceFailure) {
+      return initialEntity.merge(errors: [NoConnectivityEntityFailure()]) as E;
+    }
+    return initialEntity.merge(errors: [GeneralEntityFailure()]) as E;
   }
 
-  /// override if needed
-  R createRequest(E entity) {
-    return null;
-  }
+  // Override if needed.
+  R? createRequest(E entity) => null;
 }

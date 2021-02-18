@@ -10,7 +10,7 @@ abstract class Presenter<B extends Bloc, V extends ViewModel, S extends Screen>
   Widget build(BuildContext context) {
     B bloc = BlocProvider.of<B>(context);
 
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
       sendViewModelRequest(bloc);
     });
 
@@ -20,7 +20,7 @@ abstract class Presenter<B extends Bloc, V extends ViewModel, S extends Screen>
         if (snapshot.connectionState == ConnectionState.waiting) {
           return buildLoadingScreen(context);
         } else if (snapshot.hasData) {
-          return buildScreen(context, bloc, snapshot.data);
+          return buildScreen(context, bloc, snapshot.data!);
         }
         return buildErrorScreen(context, snapshot.error);
       },
@@ -34,7 +34,7 @@ abstract class Presenter<B extends Bloc, V extends ViewModel, S extends Screen>
   Widget buildLoadingScreen(BuildContext context) =>
       Container(key: Key('waitingForStream'));
 
-  Widget buildErrorScreen(BuildContext context, Error error) =>
+  Widget buildErrorScreen(BuildContext context, Object? error) =>
       Container(key: Key('noContentFromStream'));
 
   /// By default, the view model pipe should have a onListen callback on the

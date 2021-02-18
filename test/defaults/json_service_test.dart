@@ -20,8 +20,8 @@ void main() {
     await service.request();
     expect(handler.errorType, isNull);
     expect(handler.model, isNotNull);
-    expect(handler.model.field, 123);
-    expect(handler.model.optionalField, 'default');
+    expect(handler.model!.field, 123);
+    expect(handler.model!.optionalField, 'default');
   });
 
   test('JsonService GET success with request variable', () async {
@@ -56,8 +56,8 @@ void main() {
       service.resolvedPath,
       'test/pre-${requestModel.id}.json?p1=${requestModel.param1}&p2=${requestModel.param2}',
     );
-    expect(handler.model.field, 123);
-    expect(handler.model.optionalField, 'default');
+    expect(handler.model!.field, 123);
+    expect(handler.model!.optionalField, 'default');
   });
 
   test('JsonService GET with empty response', () async {
@@ -201,8 +201,8 @@ void main() {
     await service.request(requestModel: requestModel);
     expect(handler.errorType, isNull);
     expect(handler.model, isNotNull);
-    expect(handler.model.field, 123);
-    expect(handler.model.optionalField, 'default');
+    expect(handler.model!.field, 123);
+    expect(handler.model!.optionalField, 'default');
   });
 }
 
@@ -219,14 +219,14 @@ class TestJsonService extends JsonService {
 
 class TestJsonRequestModel extends JsonRequestModel {
   final String id;
-  final String param1;
-  final String param2;
+  final String? param1;
+  final String? param2;
 
   TestJsonRequestModel({
-    this.id,
+    required this.id,
     this.param1,
     this.param2,
-  }) : assert(id != null);
+  });
 
   @override
   Map<String, dynamic> toJson() => {
@@ -261,11 +261,11 @@ class TestJsonResponseModel extends JsonResponseModel {
 
 class TestJsonServiceResponseHandler
     implements JsonServiceResponseHandler<TestJsonResponseModel> {
-  TestJsonResponseModel model;
-  RestResponseType errorType;
-  Map<String, dynamic> invalidRequestModel;
-  String invalidResponse;
-  bool isOffline;
+  TestJsonResponseModel? model;
+  RestResponseType? errorType;
+  Map<String, dynamic>? invalidRequestModel;
+  String? invalidResponse;
+  bool? isOffline;
 
   void reset() {
     model = null;
@@ -281,7 +281,7 @@ class TestJsonServiceResponseHandler
   }
 
   @override
-  void onInvalidRequest(Map<String, dynamic> requestJson) {
+  void onInvalidRequest(Map<String, dynamic>? requestJson) {
     invalidRequestModel = requestJson;
   }
 
