@@ -14,24 +14,24 @@ import 'package:clean_framework_example/payment/model/payment_view_model.dart';
 ///   returns a ViewModel, which is pushed down to the Presenter.
 
 class PaymentUseCase extends UseCase {
-  Function(ViewModel) _viewModelCallBack;
+  late final ViewModelCallback<PaymentViewModel> _viewModelCallBack;
 
-  RepositoryScope _scope;
+  late RepositoryScope _scope;
 
-  PaymentUseCase(Function(ViewModel) viewModelCallBack)
-      : assert(viewModelCallBack != null),
-        _viewModelCallBack = viewModelCallBack;
+  PaymentUseCase(ViewModelCallback<PaymentViewModel> viewModelCallBack)
+      : _viewModelCallBack = viewModelCallBack;
 
   void create() async {
-    _scope = ExampleLocator().repository.containsScope<PaymentEntity>();
-    if (_scope == null) {
+    var scope = ExampleLocator().repository.containsScope<PaymentEntity>();
+    if (scope == null) {
       final newPaymentEntity = PaymentEntity();
-      _scope = ExampleLocator()
+      scope = ExampleLocator()
           .repository
           .create<PaymentEntity>(newPaymentEntity, _notifySubscribers);
     } else {
-      _scope.subscription = _notifySubscribers;
+      scope.subscription = _notifySubscribers;
     }
+    _scope = scope;
     final entity = ExampleLocator().repository.get<PaymentEntity>(_scope);
     _viewModelCallBack(buildViewModelForLocalUpdate(entity));
   }

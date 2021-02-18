@@ -1,8 +1,6 @@
 import 'package:clean_framework/clean_framework_defaults.dart';
-import 'package:equatable/equatable.dart';
 
-class ExampleServiceResponseModel extends Equatable
-    implements JsonResponseModel {
+class ExampleServiceResponseModel extends JsonResponseModel {
   final String lastLogin;
   final int loginCount;
 

@@ -13,11 +13,10 @@ import 'package:clean_framework_example/example_locator.dart';
 ///   returns a ViewModel, which is pushed down to the Presenter.
 
 class ExampleUseCase extends UseCase {
-  Function(ViewModel) _viewModelCallBack;
+  late final ViewModelCallback<ExampleViewModel> _viewModelCallBack;
 
-  ExampleUseCase(Function(ViewModel) viewModelCallBack)
-      : assert(viewModelCallBack != null),
-        _viewModelCallBack = viewModelCallBack;
+  ExampleUseCase(ViewModelCallback<ExampleViewModel> viewModelCallBack)
+      : _viewModelCallBack = viewModelCallBack;
 
   void execute() async {
     final scope = ExampleLocator()

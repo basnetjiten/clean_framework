@@ -8,8 +8,12 @@ class ExampleBlocMock extends Fake implements ExampleBloc {
 
   ExampleBlocMock() {
     exampleViewModelPipe.whenListenedDo(() {
-      exampleViewModelPipe.send(ExampleViewModel(
-          lastLogin: DateTime.parse('2020-01-01'), loginCount: 5));
+      exampleViewModelPipe.send(
+        ExampleViewModel(
+          lastLogin: DateTime.parse('2020-01-01'),
+          loginCount: 5,
+        ),
+      );
     });
   }
 }

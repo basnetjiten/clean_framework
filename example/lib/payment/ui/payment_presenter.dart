@@ -18,7 +18,7 @@ class PaymentPresenter
   @override
   PaymentScreen buildScreen(
       BuildContext context, PaymentBloc bloc, PaymentViewModel viewModel) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance?.addPostFrameCallback((_) {
       if (viewModel.serviceStatus == ServiceStatus.successful) {
         _navigateToDetailScreen(context);
       } else if (viewModel.serviceStatus == ServiceStatus.failed) {
@@ -60,7 +60,7 @@ class PaymentPresenter
   }
 
   void _onChangeAmount(String value, PaymentBloc bloc) {
-    double amount = double.tryParse(value);
+    final amount = double.tryParse(value);
     if (amount != null) {
       bloc.amountPipe.send(amount);
     }

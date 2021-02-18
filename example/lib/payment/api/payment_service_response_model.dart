@@ -1,8 +1,6 @@
 import 'package:clean_framework/clean_framework_defaults.dart';
-import 'package:equatable/equatable.dart';
 
-class PaymentServiceResponseModel extends Equatable
-    implements JsonResponseModel {
+class PaymentServiceResponseModel extends JsonResponseModel {
   final bool didSucceed;
 
   PaymentServiceResponseModel.fromJson(Map<String, dynamic> json)
