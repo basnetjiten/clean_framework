@@ -7,7 +7,7 @@ class Locator {
   static init(Locator locator) => _instance ??= locator;
 
   static T getInstance<T extends Locator>() {
-    assert(_instance != null, "${T.runtimeType} hasn't been initialized.");
+    assert(_instance != null, "$T hasn't been initialized.");
     return _instance as T;
   }
 

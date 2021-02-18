@@ -65,9 +65,7 @@ class Pipe<T> {
 }
 
 class EventPipe extends Pipe<void> {
-  EventPipe({VoidCallback? onListen})
-      : super._(initialData: null, canSendDuplicateData: true);
-  //EventPipe.single({VoidCallback onListen}) : super.single(initialData: null);
+  EventPipe() : super._(initialData: null, canSendDuplicateData: true);
 
   @override
   Stream<void> get receive {
