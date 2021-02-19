@@ -480,19 +480,78 @@ void main() {
       expect(navElement.router.previousPage?.name, isNull);
       expect(navElement.router.currentPage.name, '/dashboard');
     });
+
+    testWidgets('delegate onUpdate', (tester) async {
+      var count = 1;
+      await tester.pumpWidget(
+        buildWidget(
+          generator: (name) {
+            switch (name) {
+              case '/':
+                return OnTapPage(
+                  id: 'Home',
+                  onTap: (context) => context.router.push('/detail'),
+                );
+              case '/detail':
+                return OnTapPage(
+                  id: 'Detail',
+                  onTap: (context) => context.router.push('/buy'),
+                );
+              case '/buy':
+                return OnTapPage(
+                  id: 'Buy',
+                  onTap: (context) => context.router.push('/pay'),
+                );
+              default:
+                return Page404();
+            }
+          },
+          onUpdate: expectAsync1((page) {
+            switch (count) {
+              case 1:
+                expect(page.name, '/');
+                break;
+              case 2:
+                expect(page.name, '/detail');
+                break;
+              case 3:
+                expect(page.name, '/buy');
+                break;
+              case 4:
+                expect(page.name, '/pay');
+                break;
+            }
+            count++;
+          }, count: 4),
+        ),
+      );
+
+      // push
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+
+      // push
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+
+      // push
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+    });
   });
 }
 
 Widget buildWidget({
   String initialRoute = '/',
   required CFRouteGenerator generator,
+  void Function(CFRoutePage)? onUpdate,
 }) {
   return CFRouterScope(
     initialRoute: initialRoute,
     routeGenerator: generator,
     builder: (context) {
       return MaterialApp.router(
-        routerDelegate: CFRouterDelegate(context),
+        routerDelegate: CFRouterDelegate(context, onUpdate: onUpdate),
         routeInformationParser: CFRouteInformationParser(),
       );
     },
