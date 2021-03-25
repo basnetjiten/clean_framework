@@ -13,6 +13,8 @@ import 'router.dart';
 /// ```
 class CFRouteInformationParser
     extends RouteInformationParser<CFRouteInformation> {
+  const CFRouteInformationParser();
+
   @override
   Future<CFRouteInformation> parseRouteInformation(
     RouteInformation routeInformation,

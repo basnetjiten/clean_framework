@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.4.1] Fixed an issue where hot reload would reset the route to initial route (2021-03-21)
+
 ## [0.4.0] Null Safety Release (2021-02-14)
 
 * Stable null safety release.
